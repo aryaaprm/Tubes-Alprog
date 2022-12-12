@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <conio.h>
-
+ 
 typedef struct {
     char nama[50];      
     char username[50];  
@@ -10,29 +10,6 @@ typedef struct {
     char email[50];    
 }User;
 User u;
-
-typedef struct {
-	int nomor_villa;        //untuk menyimpan nomor_villa yang dipesan ke dalam variabel integer saat input pemesanan villa
-	char nama_pemesan[50];  //untuk menyimpan nama_pemesan ke dalam variabel char dengan maksimal 50 karakter saat input pemesanan villa
-	char noHP [15];         //untuk menyimpan noHP pemesan ke dalam variabel char dengan maksimal 15 karakter saat input pemesanan villa
-	char email [50];        //untuk menyimpan email pemesan ke dalam variabel char dengan maksimal 50 karakter saat input pemesanan villa
-	int orang ;             //untuk menyimpan banyaknya orang yang ada didalam suatu villa, disimpan ke variabel bertipe integer, input saat pemesanan villa
-	int tglCI ;             //berfungsi untuk menyimpan tanggal check in saat input pemesanan villa ke dalam variabel bertipe integer
-	int blnCI ;             //berfungsi untuk menyimpan bulan check in saat input pemesanan villa ke dalam variabel bertipe integer
-	int thnCI ;             //berfungsi untuk menyimpan tahun check in saat input pemesanan villa ke dalam variabel bertipe integer
-	int tglbook;            //berfungsi untuk menyimpan tanggal booking saat input pemesanan villa ke dalam variabel bertipe integer
-  	int blnbook;            //berfungsi untuk menyimpan bulan booking saat input pemesanan villa ke dalam variabel bertipe integer
-  	int thnbook;            //berfungsi untuk menyimpan tahun booking saat input pemesanan villa ke dalam variabel bertipe integer
-  	int tglCO ;             //berfungsi untuk menyimpan tanggal check out saat input pemesanan villa ke dalam variabel bertipe integer
-	int blnCO ;             //berfungsi untuk menyimpan bulan check out saat input pemesanan villa ke dalam variabel bertipe integer
-	int thnCO ;             //berfungsi untuk menyimpan tahun check out saat input pemesanan villa ke dalam variabel bertipe integer
-	float totalPembayaran ; //berfungsi untuk menyimpan total pembayaran villa ke dalam variabel bertipe float
-	float DPpemesan ;       //berfungsi untuk menyimpan total DP Pemesan ke dalam variabel bertipe float
-	float sisaPembayaran ;  //berfungsi untuk menyimpan sisa pembayaran villa ke dalam variabel bertipe float
-	int id_pesan ;	        //berfungsi untuk menyimpan id_villa yang diinput user ke dalam variabel bertipe integer
-	char status[15];
-}pesan_villa;
-pesan_villa pesanvl; //Mendeklarasikan variabel pesanvl pada struct pesan_villa
 
 void menu_utama();
 void menu_registrasi();
@@ -137,44 +114,77 @@ void menu_utama(){
 }
 
 void menu_registrasi(){
-    FILE *registrasi;
+    char username[50];
+    char password[50];
+    char nama[50];
+    char email[50];
 
-    registrasi = fopen("AkunPelanggan.txt","w");
-
-    if (registrasi == NULL){
-        fputs("ERROR, Tidak ada File!", stderr);
-        exit(1);
-    }
-
+	system("cls");
 	printf("=================================================================\n");
 	printf("||                                                             ||\n");
 	printf("||                  MENU REGISTRASI PENGGUNA BARU              ||\n");
 	printf("||                                                             ||\n");
 	printf("=================================================================\n\n");
     printf("   Nama Lengkap     : ");
-    gets(u.nama);
+    scanf("%s", &nama);
     printf("   Email            : ");
-    scanf("%s", u.email);
-    
+    scanf("%s", &email);
 	printf("_________________________________________________________________  \n");
     printf("\n           !! Silahkan membuat username dan password !!          \n");
 	printf("_________________________________________________________________\n\n");
-    printf("   Enter Username   :");
-    scanf ("%s", u.username);
-    printf("   Enter Password   :");
-    scanf ("%s", u.password);
+    printf("   Enter Username   : ");
+    scanf ("%s", &username);
+    printf("   Enter Password   : ");
+    scanf ("%s", &password);
+    
+    int user_check;
+    user_check = 0;
+    
+    FILE *AP;
+    AP=fopen("AkunPelanggan.txt", "r");
+    
+	if(AP == NULL){
+    	printf("File txt Tidak Tersedia\n");
 
-    fwrite(&u,sizeof(u),1,registrasi);
-    fclose(registrasi);
-	printf("\n=================================================================\n");
-	printf("||                                                             ||\n");
-	printf("||                      REGISTRASI BERHASIL                    ||\n");
-	printf("||         SELAMAT MENIKMATI LAYANAN DARI PROGRAM INI          ||\n");
-	printf("||                                                             ||\n");
-	printf("=================================================================\n");
-	printf("Tekan apapun untuk melanjutkan. . .");
-    getch();
-    menu_pelanggan();
+	}else{
+    	while(fscanf(AP, "Username: %s\t\t Password: %s\t\t Nama: %s\t\t Email: %s\t\t\n", u.username, &u.password, &u.nama, &u.email) != EOF){
+    		if(strcmp(u.username,username)==0){
+        	user_check = user_check + 1;
+        	
+			}else{
+			user_check = user_check + 0;
+        	}	
+		}
+    fclose(AP);
+	}
+	
+	FILE *registrasi;
+	registrasi = fopen("AkunPelanggan.txt","a");
+	
+	if(user_check==0){
+		if(registrasi == NULL){
+    		printf("\t\t\tFile txt Tidak Tersedia\n");
+    		
+		}else{
+	        fprintf(registrasi,"Username: %s\t\t Password: %s\t\t Nama: %s\t\t Email: %s\t\t\n",username,password,nama,email);
+		    fclose(registrasi);
+		    
+			printf("\n=================================================================\n");
+			printf("||                                                             ||\n");
+			printf("||                      REGISTRASI BERHASIL                    ||\n");
+			printf("||         SELAMAT MENIKMATI LAYANAN DARI PROGRAM INI          ||\n");
+			printf("||                                                             ||\n");
+			printf("=================================================================\n");
+			printf("Tekan apapun untuk melanjutkan. . .");
+		    getch();
+		    menu_pelanggan();
+		}
+    }else{
+       	printf("\n   Maaf, username telah digunakan!");
+       	printf("\n   Klik apapun untuk input ulang...");
+        getch();
+        menu_registrasi();
+    }
 }
 
 void pilihan_login(){
@@ -224,7 +234,7 @@ void login_admin(){
 	passwordbenar=strcmp(passP,passwordP);
 	if(passwordbenar==0){
 		menu_admin();
-	}else{
+	} else {
 		system("cls");
 		printf("=================================================================\n");
 		printf("||                                                             ||\n");
@@ -260,60 +270,71 @@ void login_pengguna(){
     int link;
 
     FILE *AP;
-    AP = fopen("AkunPelanggan.txt", "r");
-    if (AP==NULL){
-        fputs ("Error, Tidak terdapat File untuk penyimpanan akun\n", stderr);
-        menu_registrasi();
-    } 
+    AP=fopen("AkunPelanggan.txt", "r");
+
+	if(AP==NULL){
+        printf("\t\t\tFile txt Tidak Tersedia\n");
+    }
 
 	printf("=================================================================\n");
 	printf("||                                                             ||\n");
 	printf("||                       MENU LOGIN EASY BOOK                  ||\n");
 	printf("||                                                             ||\n");
 	printf("=================================================================\n\n");
-    printf ("   Username: ");
-    scanf  ("%s", username);
-    printf ("   Password: ");
+    printf ("   Username: "); 
+    scanf  ("%s", username); 
+    printf ("   Password: "); 
     scanf  ("%s", password);
     system ("cls");
-
-    while(fread(&u,sizeof(u),1,AP)){
-        if(strcmp(username, u.username)==0 && strcmp(password, u.password)==0){
-            menu_pelanggan();
     
-        }else {
-			printf("=================================================================\n");
-			printf("||                                                             ||\n");
-			printf("||                       AKUN TIDAK DITEMUKAN                  ||\n");
-			printf("||                                                             ||\n");
-			printf("=================================================================\n\n");
+    int user_check;
+    user_check = 0;
 
-            printf("=================================================================\n");
-			printf("||                                                             ||\n");
-            printf("||   1. MELAKUKAN REGISTRASI                                   ||\n");
-            printf("||   2. MELAKUKAN LOGIN KEMBALI                                ||\n");
-            printf("||   3. KEMBALI KE MENU PILIHAN LOGIN                          ||\n");
-			printf("||                                                             ||\n");
-			printf("=================================================================\n");
-			printf("Silakan Masukan Pilihan Anda (1/2/3): ");
-            link=validasi_tiga();
-            system ("cls");
-
-            if(link==1){
-                menu_registrasi();
-
-            }else if (link==2) {
-                login_pengguna();
-                
-            }else if (link==3){
-                pilihan_login();
-
-            }else {
-                printf ("Masukan pilihan yang sesuai (1/2/3):\n");
-               login_pengguna();
-            }
+    while(fscanf(AP, "Username: %s\t\t Password: %s\t\t Nama: %s\t\t Email: %s\t\t\n", u.username, &u.password, &u.nama, &u.email) != EOF){
+    	if(strcmp(u.username,username)==0 && strcmp(u.password,password)==0){
+        	user_check = user_check + 1;
+        	
+		}else{
+			user_check = user_check + 0;
         }
     }
+    
+    if(user_check==0){
+    	printf("=================================================================\n");
+		printf("||                                                             ||\n");
+		printf("||                       AKUN TIDAK DITEMUKAN                  ||\n");
+		printf("||                                                             ||\n");
+		printf("=================================================================\n\n");
+
+        printf("=================================================================\n");
+		printf("||                                                             ||\n");
+        printf("||   1. MELAKUKAN REGISTRASI                                   ||\n");
+        printf("||   2. MELAKUKAN LOGIN KEMBALI                                ||\n");
+        printf("||   3. KEMBALI KE MENU PILIHAN LOGIN                          ||\n");
+		printf("||                                                             ||\n");
+		printf("=================================================================\n");
+		printf("Silakan Masukan Pilihan Anda (1/2/3): ");
+        link=validasi_tiga();
+        system ("cls");
+
+        if(link==1){
+            menu_registrasi();
+
+        }else if (link==2) {
+            login_pengguna();
+                
+        }else if (link==3){
+            pilihan_login();
+
+        }else{
+            printf("Masukan pilihan yang sesuai (1/2/3):\n");
+            login_pengguna();
+        }
+
+	}else{
+		menu_pelanggan();
+		
+	}
     fclose(AP);
 }
 
@@ -323,6 +344,10 @@ void menu_admin(){
 	printf("||                                                             ||\n");
     printf("||                      MENU ADMINISTRATOR                     ||\n");
     printf("||                           EASY BOOK                         ||\n");
+    printf("||                                                             ||\n");
+    printf("=================================================================\n");
+    printf("                                                                 \n");
+    printf("=================================================================\n");
 	printf("||                                                             ||\n");
     printf("||   1. INPUT DATA VILLA                                       ||\n");
     printf("||   2. HAPUS DATA VILLA                                       ||\n");
@@ -336,7 +361,21 @@ void menu_admin(){
 
 void menu_pelanggan(){
 	system("cls");
-	printf("MANTAP");
-	getch();
-	pilihan_login();
+	printf("=================================================================\n");
+	printf("||                                                             ||\n");
+    printf("||                          MENU PENGGUNA                      ||\n");
+    printf("||                            EASY BOOK                        ||\n");
+    printf("||                                                             ||\n");
+    printf("=================================================================\n");
+    printf("                                                                 \n");
+    printf("=================================================================\n");
+	printf("||                                                             ||\n");
+    printf("||   1. TENTANG KAMI                                           ||\n");
+    printf("||   2. ATURAN PEMESANAN VILLA                                 ||\n");
+    printf("||   3. PILIHAN VILLA                                          ||\n");
+    printf("||   4. PESAN VILLA                                            ||\n"); 
+    printf("||   5. KEMBALI KE MENU UTAMA                                  ||\n");
+	printf("||                                                             ||\n");
+    printf("=================================================================\n");
+    printf("Silakan Masukan Pilihan Anda (1/2/3/4/5): ");
 }
