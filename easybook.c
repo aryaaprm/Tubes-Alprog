@@ -18,6 +18,14 @@ void login_admin();
 void login_pengguna();
 void menu_admin();
 void menu_pelanggan(); 
+void input_villa();
+void hapus_villa();
+void pesanan_villa();
+void hapus_pesanan();
+void tentang_kami();
+void aturan_pemesanan();
+void pilihan_villa();
+void pesan_villa();
 
 int validasi_input(){
     int bilangan;
@@ -34,6 +42,19 @@ int validasi_input(){
     }else{
         return bilangan;
     }
+}
+
+int validasi_lima(){
+    int bilangan;
+    bilangan=validasi_input();
+    
+    if(bilangan >=1 && bilangan <=5){
+        return bilangan;
+        
+    }else{
+        printf("Masukan pilihan yang sesuai (1/2/3/4/5): ");
+    	return validasi_tiga();
+	}
 }
 
 int validasi_tiga(){
@@ -125,16 +146,16 @@ void menu_registrasi(){
 	printf("||                  MENU REGISTRASI PENGGUNA BARU              ||\n");
 	printf("||                                                             ||\n");
 	printf("=================================================================\n\n");
-    printf("   Nama Lengkap     : ");
-    scanf("%s", &nama);
-    printf("   Email            : ");
+    printf("   Nama Lengkap     : "); fflush(stdin);
+    scanf("%[^\n]", &nama);
+    printf("   Email            : "); 
     scanf("%s", &email);
 	printf("_________________________________________________________________  \n");
     printf("\n           !! Silahkan membuat username dan password !!          \n");
 	printf("_________________________________________________________________\n\n");
-    printf("   Enter Username   : ");
+    printf("   Enter Username   : "); 
     scanf ("%s", &username);
-    printf("   Enter Password   : ");
+    printf("   Enter Password   : "); 
     scanf ("%s", &password);
     
     int user_check;
@@ -147,7 +168,7 @@ void menu_registrasi(){
     	printf("File txt Tidak Tersedia\n");
 
 	}else{
-    	while(fscanf(AP, "Username: %s\t\t Password: %s\t\t Nama: %s\t\t Email: %s\t\t\n", u.username, &u.password, &u.nama, &u.email) != EOF){
+    	while(fscanf(AP, "Username: %s\t\t Password: %s\t\t Nama: %[^\n]\t\t Email: %s\t\t\n", u.username, &u.password, &u.nama, &u.email) != EOF){
     		if(strcmp(u.username,username)==0){
         	user_check = user_check + 1;
         	
@@ -163,7 +184,7 @@ void menu_registrasi(){
 	
 	if(user_check==0){
 		if(registrasi == NULL){
-    		printf("\t\t\tFile txt Tidak Tersedia\n");
+    		printf("File txt Tidak Tersedia\n");
     		
 		}else{
 	        fprintf(registrasi,"Username: %s\t\t Password: %s\t\t Nama: %s\t\t Email: %s\t\t\n",username,password,nama,email);
@@ -222,7 +243,7 @@ void login_admin(){
 	FILE *AA;
 	AA=fopen("AkunAdmin.txt", "r");
 	fscanf(AA, "%s", passwordP);
-	//fclose(AA); 
+	fclose(AA); 
 	
 	printf("=================================================================\n");
 	printf("||                                                             ||\n");
@@ -290,7 +311,7 @@ void login_pengguna(){
     int user_check;
     user_check = 0;
 
-    while(fscanf(AP, "Username: %s\t\t Password: %s\t\t Nama: %s\t\t Email: %s\t\t\n", u.username, &u.password, &u.nama, &u.email) != EOF){
+    while(fscanf(AP, "Username: %s\t\t Password: %s\t\t Nama: %[^\n]\t\t Email: %s\t\t\n", &u.username, &u.password, &u.nama, &u.email) != EOF){
     	if(strcmp(u.username,username)==0 && strcmp(u.password,password)==0){
         	user_check = user_check + 1;
         	
@@ -339,6 +360,7 @@ void login_pengguna(){
 }
 
 void menu_admin(){
+	int link;
 	system("cls");
 	printf("=================================================================\n");
 	printf("||                                                             ||\n");
@@ -356,10 +378,34 @@ void menu_admin(){
     printf("||   5. KEMBALI KE MENU UTAMA                                  ||\n");
 	printf("||                                                             ||\n");
     printf("=================================================================\n");
-    printf("Silakan Masukan Pilihan Anda (1/2/3/4/5): ");	
+    printf("Silakan Masukan Pilihan Anda (1/2/3/4/5): ");
+    link=validasi_lima();
+    system ("cls");
+
+    if(link==1){
+        input_villa();
+
+    }else if (link==2) {
+        hapus_villa();
+                
+    }else if (link==3){
+        pesanan_villa();
+    
+    }else if (link==4){
+        hapus_pesanan();
+        
+    }else if (link==5){
+        menu_utama();
+
+    }else{
+        printf("Masukan pilihan yang sesuai (1/2/3/4/5):\n");
+        menu_admin();
+    }
+		
 }
 
 void menu_pelanggan(){
+	int link;
 	system("cls");
 	printf("=================================================================\n");
 	printf("||                                                             ||\n");
@@ -378,4 +424,80 @@ void menu_pelanggan(){
 	printf("||                                                             ||\n");
     printf("=================================================================\n");
     printf("Silakan Masukan Pilihan Anda (1/2/3/4/5): ");
+    link=validasi_lima();
+    system ("cls");
+
+    if(link==1){
+        tentang_kami();
+
+    }else if (link==2) {
+        aturan_pemesanan();
+                
+    }else if (link==3){
+        pilihan_villa();
+    
+    }else if (link==4){
+        pesan_villa();
+        
+    }else if (link==5){
+        menu_utama();
+
+    }else{
+        printf("Masukan pilihan yang sesuai (1/2/3/4/5):\n");
+        menu_pelanggan();
+    }
+}
+
+void input_villa(){
+	printf("input data villa");
+	getch();
+	menu_admin();
+}
+
+void hapus_villa(){
+	printf("hapus data villa");
+	getch();
+	menu_admin();
+}
+
+void pesanan_villa(){
+	printf("data pesanan villa");
+	getch();
+	menu_admin();
+}
+
+void hapus_pesanan(){
+	printf("hapus data pesanan villa");
+	getch();
+	menu_admin();
+}
+
+void tentang_kami(){
+	 printf("=================================================================\n");
+	printf("||                                                             ||\n");
+    printf("||                            TENTANG                          ||\n");
+    printf("||                           EASY BOOK                         ||\n");
+    printf("||                                                             ||\n");
+    printf("=================================================================\n");
+	printf("tentang kami");
+	getch();
+	menu_pelanggan();
+}
+
+void aturan_pemesanan(){
+	printf("aturan");
+	getch();
+	menu_pelanggan();
+}
+
+void pilihan_villa(){
+	printf("pilihan villa");
+	getch();
+	menu_pelanggan();
+}
+
+void pesan_villa(){
+	printf("pesan villa");
+	getch();
+	menu_pelanggan();
 }
