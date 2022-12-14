@@ -473,7 +473,7 @@ void hapus_pesanan(){
 }
 
 void tentang_kami(){
-	 printf("=================================================================\n");
+	printf("=================================================================\n");
 	printf("||                                                             ||\n");
     printf("||                            TENTANG                          ||\n");
     printf("||                           EASY BOOK                         ||\n");
@@ -485,18 +485,58 @@ void tentang_kami(){
 }
 
 void aturan_pemesanan(){
-	printf("aturan");
+	system ("cls");
+	printf("==================================================================\n");
+	printf("||                                                              ||\n");
+	printf("||                             ATURAN                           ||\n");
+	printf("||                         PEMESANAN VILLA                      ||\n");
+	printf("||                                                              ||\n");
+	printf("==================================================================\n");
+	printf("                                                                  \n");
+	printf("==================================================================\n");
+	printf("|                             ATURAN                            ||\n");
+	printf("|                         PEMESANAN VILLA                       ||\n");
+	printf("==================================================================\n");
+	printf("| Berikut adalah hal yang harus anda ketahui bila ingin          |\n");
+	printf("| memesan villa easybook                                         |\n");
+	printf("|1. Pemesanan dilayani oleh admin / pegawai villa easybook       |\n");
+	printf("|2. Setiap memesan harus persiapkan DP sesuai dengan             |\n");
+	printf("|   DP minimal masing-masing villa (DP bisa dilihat pada         |\n");
+	printf("|   menu list villa)                                             |\n");
+	printf("|3. Setiap pemesanan akan dikenakan biaya admin Rp.2000.00       |\n");
+	printf("|4. Pemesan akan dikenakan deposito sebesar Rp.500.000.00        |\n");
+	printf("|   deposito akan dikembalikan saat check out bila tidak ada     |\n");
+	printf("|   kerusakan barang atau fasilitas saat menempati villa         |\n");
+	printf("|5. Waktu check in setiap villa sama pukul 14.00 WITA dan        |\n");
+	printf("|   waktu check out pukul 12.00 WITA                             |\n");
+	printf("|6. Lama waktu menginap semua villa sama yaitu 2 hari 1          |\n");
+	printf("|   malam, bila ingin menambah hari maka harus memesan lagi      |\n");
+	printf("==================================================================\n");
 	getch();
 	menu_pelanggan();
 }
 
 void pilihan_villa(){
+	printf("==================================================================\n");
+	printf("||                                                             || \n");
+	printf("||                                                             || \n");
+	printf("||                         PILIHAN VILLA                       || \n");
+	printf("||                                                             || \n");
+	printf("||                                                             || \n");
+	printf("==================================================================\n");
 	printf("pilihan villa");
 	getch();
 	menu_pelanggan();
 }
 
 void pesan_villa(){
+	printf("==================================================================\n");
+	printf("||                                                             || \n");
+	printf("||                                                             || \n");
+	printf("||                         PESAN VILLA                         || \n");
+	printf("||                                                             || \n");
+	printf("||                                                             || \n");
+	printf("==================================================================\n");
 	printf("pesan villa");
 	getch();
 	menu_pelanggan();
