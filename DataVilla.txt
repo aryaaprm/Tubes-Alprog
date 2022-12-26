@@ -1,0 +1,5 @@
+Id Villa: 1		 Nama Villa: Mehari		 Tipe Kamar: Deluxe		 Tipe Fasilitas: Prime		 Harga Sewa: 3000000		 Alamat Villa: Jalan Pantai Berawa No. 18, Canggu		
+Id Villa: 2		 Nama Villa: Sangkara		 Tipe Kamar: Twin		 Tipe Fasilitas: Trend		 Harga Sewa: 700000		 Alamat Villa: Jalan Diponegoro No. 27, Denpasar		
+Id Villa: 3		 Nama Villa: Arctic		 Tipe Kamar: Twin		 Tipe Fasilitas: Style		 Harga Sewa: 1000000		 Alamat Villa: Jalan Puri Gading No.1, Kintamani		
+Id Villa: 4		 Nama Villa: Amanjiva		 Tipe Kamar: Deluxe		 Tipe Fasilitas: Prime		 Harga Sewa: 4500000		 Alamat Villa: Jalan Raya Seririt No.48, Buleleng		
+Id Villa: 5		 Nama Villa: Palm		 Tipe Kamar: Triple		 Tipe Fasilitas: Style		 Harga Sewa: 1500000		 Alamat Villa: Jalan Cemara No. 1, Sanur		
