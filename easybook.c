@@ -38,7 +38,8 @@ typedef struct{
 	int thnCI;                         
   	int tglCO;             
 	int blnCO;             
-	int thnCO;             
+	int thnCO;
+	int lama_sewa;             
 	int totalPembayaran ;        
 	int sisaPembayaran ;  
 	char status[15];
@@ -582,7 +583,11 @@ void input_villa(){
 		printf("||                             EASY BOOK                       ||\n");
 		printf("||                                                             ||\n");
 		printf("=================================================================\n\n");
-		printf("   Id Villa         : "); fflush(stdin);
+		printf("   VILLA YANG TELAH TERSEDIA:                                    \n");
+		pilihan_villa();
+		printf("                                                                 \n");
+		printf("-----------------------------------------------------------------\n");
+		printf("\n   Id Villa         : "); fflush(stdin);
 		scanf("%s", &id_villa);
 		printf("   Nama Villa       : "); fflush(stdin);
 		scanf("%s", &nama_villa);
@@ -722,7 +727,7 @@ void pesanan_villa(){
 		if(cekdata==NULL){
 			printf("file txt tidak ada!");
 		}else{
-			while(fscanf(cekdata, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",&pv.tm_mday,&pv.tm_mon,&pv.tm_year,&pv.ids_pesanan,&pv.username,&pv.id_villa,&pv.tglCI,&pv.blnCI,&pv.thnCI,&pv.tglCO,&pv.blnCO,&pv.thnCO,&pv.totalPembayaran,&pv.sisaPembayaran,&pv.status) != EOF){
+			while(fscanf(cekdata, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Lama Sewa: %d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",&pv.tm_mday,&pv.tm_mon,&pv.tm_year,&pv.ids_pesanan,&pv.username,&pv.id_villa,&pv.tglCI,&pv.blnCI,&pv.thnCI,&pv.lama_sewa,&pv.tglCO,&pv.blnCO,&pv.thnCO,&pv.totalPembayaran,&pv.sisaPembayaran,&pv.status) != EOF){
 				printf("\t%s\t\t%d/%d/%d\t\t%s\n", pv.ids_pesanan, pv.tglCI, pv.blnCI, pv.thnCI, pv.status);
 			}
 		}
@@ -740,7 +745,7 @@ void pesanan_villa(){
 			printf("file txt tidak ada!");
 
 		}else{
-			while(fscanf(cekdata, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",&pv.tm_mday,&pv.tm_mon,&pv.tm_year,&pv.ids_pesanan,&pv.username,&pv.id_villa,&pv.tglCI,&pv.blnCI,&pv.thnCI,&pv.tglCO,&pv.blnCO,&pv.thnCO,&pv.totalPembayaran,&pv.sisaPembayaran,&pv.status) != EOF){
+			while(fscanf(cekdata, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Lama Sewa: %d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",&pv.tm_mday,&pv.tm_mon,&pv.tm_year,&pv.ids_pesanan,&pv.username,&pv.id_villa,&pv.tglCI,&pv.blnCI,&pv.thnCI,&pv.lama_sewa,&pv.tglCO,&pv.blnCO,&pv.thnCO,&pv.totalPembayaran,&pv.sisaPembayaran,&pv.status) != EOF){
 				if(strcmp(pv.ids_pesanan,id_pesanan)==0){
 					system("cls");
 					printf("=================================================================\n");
@@ -755,6 +760,7 @@ void pesanan_villa(){
 					printf("   Username          : %s\n",pv.username);                            fflush(stdin);
 					printf("   Id Villa          : %s\n",pv.id_villa);                            fflush(stdin);
 					printf("   Tanggal Check In  : %d/%d/%d\n",pv.tglCI, pv.blnCI, pv.thnCI);     fflush(stdin);
+					printf("   Lama Sewa         : %d Hari\n",pv.lama_sewa);                           fflush(stdin);
 					printf("   Tanggal Check Out : %d/%d/%d\n",pv.tglCO, pv.blnCO, pv.thnCO);     fflush(stdin);
 					printf("   Total Bayar       : %d\n",pv.totalPembayaran);                     fflush(stdin);
 					printf("   Sisa Bayar        : %d\n",pv.sisaPembayaran);                      fflush(stdin);
@@ -839,7 +845,7 @@ void hapus_pesanan(){
 		if(cekdata==NULL){
 			printf("file txt tidak ada!");
 		}else{
-			while(fscanf(cekdata, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",&pv.tm_mday,&pv.tm_mon,&pv.tm_year,&pv.ids_pesanan,&pv.username,&pv.id_villa,&pv.tglCI,&pv.blnCI,&pv.thnCI,&pv.tglCO,&pv.blnCO,&pv.thnCO,&pv.totalPembayaran,&pv.sisaPembayaran,&pv.status) != EOF){
+			while(fscanf(cekdata, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Lama Sewa: %d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",&pv.tm_mday,&pv.tm_mon,&pv.tm_year,&pv.ids_pesanan,&pv.username,&pv.id_villa,&pv.tglCI,&pv.blnCI,&pv.thnCI,pv.lama_sewa,&pv.tglCO,&pv.blnCO,&pv.thnCO,&pv.totalPembayaran,&pv.sisaPembayaran,&pv.status) != EOF){
 				printf("\t%s\t\t%d/%d/%d\t\t%s\n", pv.ids_pesanan, pv.tglCI, pv.blnCI, pv.thnCI, pv.status);
 			}
 		}
@@ -860,9 +866,9 @@ void hapus_pesanan(){
 			exit(0);
 		}
 
-		while(fscanf(fp1, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",&pv.tm_mday,&pv.tm_mon,&pv.tm_year,&pv.ids_pesanan,&pv.username,&pv.id_villa,&pv.tglCI,&pv.blnCI,&pv.thnCI,&pv.tglCO,&pv.blnCO,&pv.thnCO,&pv.totalPembayaran,&pv.sisaPembayaran,&pv.status) != EOF){
+		while(fscanf(fp1, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Lama Sewa: %d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",&pv.tm_mday,&pv.tm_mon,&pv.tm_year,&pv.ids_pesanan,&pv.username,&pv.id_villa,&pv.tglCI,&pv.blnCI,&pv.thnCI,&pv.lama_sewa,&pv.tglCO,&pv.blnCO,&pv.thnCO,&pv.totalPembayaran,&pv.sisaPembayaran,&pv.status) != EOF){
 			if(strcmp(pv.ids_pesanan,id_hapus)!=0){
-				fprintf(fp2, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",pv.tm_mday,pv.tm_mon,pv.tm_year,pv.ids_pesanan,pv.username,pv.id_villa,pv.tglCI,pv.blnCI,pv.thnCI,pv.tglCO,pv.blnCO,pv.thnCO,pv.totalPembayaran,pv.sisaPembayaran,pv.status); 
+				fprintf(fp2, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Lama Sewa: %d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",pv.tm_mday,pv.tm_mon,pv.tm_year,pv.ids_pesanan,pv.username,pv.id_villa,pv.tglCI,pv.blnCI,pv.thnCI,pv.lama_sewa,pv.tglCO,pv.blnCO,pv.thnCO,pv.totalPembayaran,pv.sisaPembayaran,pv.status); 
 			}
 		}
 
@@ -908,7 +914,7 @@ void update_status(){
 	if(cekdata==NULL){
 		printf("file txt tidak ada!");
 	}else{
-		while(fscanf(cekdata, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",&pv.tm_mday,&pv.tm_mon,&pv.tm_year,&pv.ids_pesanan,&pv.username,&pv.id_villa,&pv.tglCI,&pv.blnCI,&pv.thnCI,&pv.tglCO,&pv.blnCO,&pv.thnCO,&pv.totalPembayaran,&pv.sisaPembayaran,&pv.status) != EOF){
+		while(fscanf(cekdata, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Lama Sewa: %d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",&pv.tm_mday,&pv.tm_mon,&pv.tm_year,&pv.ids_pesanan,&pv.username,&pv.id_villa,&pv.tglCI,&pv.blnCI,&pv.thnCI,&pv.lama_sewa,&pv.tglCO,&pv.blnCO,&pv.thnCO,&pv.totalPembayaran,&pv.sisaPembayaran,&pv.status) != EOF){
 			printf("\t%s\t\t%d/%d/%d\t\t%s\n", pv.ids_pesanan, pv.tglCI, pv.blnCI, pv.thnCI, pv.status);
 		}
 	}
@@ -923,13 +929,13 @@ void update_status(){
 		exit(1);
 	}
 
-	while(fscanf(fp1, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",&pv.tm_mday,&pv.tm_mon,&pv.tm_year,&pv.ids_pesanan,&pv.username,&pv.id_villa,&pv.tglCI,&pv.blnCI,&pv.thnCI,&pv.tglCO,&pv.blnCO,&pv.thnCO,&pv.totalPembayaran,&pv.sisaPembayaran,&pv.status) != EOF){
+	while(fscanf(fp1, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Lama Sewa: %d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",&pv.tm_mday,&pv.tm_mon,&pv.tm_year,&pv.ids_pesanan,&pv.username,&pv.id_villa,&pv.tglCI,&pv.blnCI,&pv.thnCI,&pv.lama_sewa,&pv.tglCO,&pv.blnCO,&pv.thnCO,&pv.totalPembayaran,&pv.sisaPembayaran,&pv.status) != EOF){
 		if(strcmp(pv.ids_pesanan,id_update)!=0){
-			fprintf(fp2, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",pv.tm_mday,pv.tm_mon,pv.tm_year,pv.ids_pesanan,pv.username,pv.id_villa,pv.tglCI,pv.blnCI,pv.thnCI,pv.tglCO,pv.blnCO,pv.thnCO,pv.totalPembayaran,pv.sisaPembayaran,pv.status);
+			fprintf(fp2, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Lama Sewa: %d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",pv.tm_mday,pv.tm_mon,pv.tm_year,pv.ids_pesanan,pv.username,pv.id_villa,pv.tglCI,pv.blnCI,pv.thnCI,pv.lama_sewa,pv.tglCO,pv.blnCO,pv.thnCO,pv.totalPembayaran,pv.sisaPembayaran,pv.status);
 		}
 	}
 
-	fprintf(fp2, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",pv.tm_mday,pv.tm_mon,pv.tm_year,id_update,pv.username,pv.id_villa,pv.tglCI,pv.blnCI,pv.thnCI,pv.tglCO,pv.blnCO,pv.thnCO,pv.totalPembayaran,pv.sisaPembayaran,status);
+	fprintf(fp2, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Lama Sewa: %d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",pv.tm_mday,pv.tm_mon,pv.tm_year,id_update,pv.username,pv.id_villa,pv.tglCI,pv.blnCI,pv.thnCI,pv.lama_sewa,pv.tglCO,pv.blnCO,pv.thnCO,pv.totalPembayaran,pv.sisaPembayaran,status);
 	fclose(fp1);
 	fclose(fp2);
 	remove("DataPesanan.txt"); 
@@ -1127,6 +1133,7 @@ void pesan_villa(){
 	int tm_mon;
 	int tm_year;
 	int id_pesanan;
+	int lama_sewa;
 	char pilihan;
 	char ids_pesanan[10];
 	char username[50];  
@@ -1159,20 +1166,26 @@ void pesan_villa(){
 		scanf("%s", &id_villa);
 		printf("   Tanggal Check In [DD/MM/YYYY] : "); fflush(stdin);
 		scanf ("%d/%d/%d", &tglCI, &blnCI, &thnCI);
+		printf("   Lama Sewa (Jumlah Hari)       : "); fflush(stdin);
+		scanf ("%d", &lama_sewa);
+
+		hari1=hari1+(lama_sewa%7);
+		while(hari1>7)
+			hari1=hari1%7;	
 
 		tglCO = 0 ;
 		blnCO = 0 ;
 		thnCO = 0 ;
 
 		do {
-			if (hari2 <= 31)
+			if (lama_sewa <= 31)
 			{
 				if (blnCI == 2) 
 					tglCO = Februari (thnCI);
 				else 
 					tglCO = BknFeb (thnCI,blnCI);
 					
-				if (tglCI + hari2 > tglCO) 
+				if (tglCI + lama_sewa > tglCO) 
 				{
 					blnCO = blnCI + 1 ;
 					
@@ -1182,12 +1195,12 @@ void pesan_villa(){
 					}
 					else 
 					thnCO = thnCI ;
-					tglCO = tglCI + hari2 - tglCO ;
+					tglCO = tglCI + lama_sewa - tglCO ;
 
 				}
 				else 
 				{
-					tglCO=tglCI+hari2;
+					tglCO=tglCI+lama_sewa;
 					blnCO=blnCI;
 					thnCO=thnCI;
 				}
@@ -1199,7 +1212,7 @@ void pesan_villa(){
 					tglCO = Februari (blnCI);
 				else
 					tglCO = BknFeb (thnCI,blnCI);
-					hari2 = hari2 - tglCO;
+					lama_sewa = lama_sewa - tglCO;
 				if (blnCI == 12)
 				{
 					blnCI = 1 ; 
@@ -1226,7 +1239,7 @@ void pesan_villa(){
 			printf("Salah Satu File txt Tidak Tersedia\n");
 
 		}else{
-			while(fscanf(fp2, "Id Villa: %s\t\t Nama Villa: %s\t\t Tipe Kamar: %s\t\t Tipe Fasilitas: %s\t\t Harga Sewa: %d\t\t Alamat Villa: %[^\n]\t\t\n",&dv.id_villa,&dv.nama_villa,&dv.tipe_kamar,&dv.tipe_fasilitas,&dv.harga,&dv.alamat_villa) != EOF, fscanf(fp1, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",&pv.tm_mday,&pv.tm_mon,&pv.tm_year,&pv.ids_pesanan,&pv.username,&pv.id_villa,&pv.tglCI,&pv.blnCI,&pv.thnCI,&pv.tglCO,&pv.blnCO,&pv.thnCO,&pv.totalPembayaran,&pv.sisaPembayaran,&pv.status) != EOF){
+			while(fscanf(fp2, "Id Villa: %s\t\t Nama Villa: %s\t\t Tipe Kamar: %s\t\t Tipe Fasilitas: %s\t\t Harga Sewa: %d\t\t Alamat Villa: %[^\n]\t\t\n",&dv.id_villa,&dv.nama_villa,&dv.tipe_kamar,&dv.tipe_fasilitas,&dv.harga,&dv.alamat_villa) != EOF, fscanf(fp1, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Lama Sewa: %d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",&pv.tm_mday,&pv.tm_mon,&pv.tm_year,&pv.ids_pesanan,&pv.username,&pv.id_villa,&pv.tglCI,&pv.blnCI,&pv.thnCI,pv.lama_sewa,&pv.tglCO,&pv.blnCO,&pv.thnCO,&pv.totalPembayaran,&pv.sisaPembayaran,&pv.status) != EOF){
 				if(strcmp(pv.id_villa,id_villa)==0 && (pv.tglCI==tglCI) && (pv.blnCI==blnCI) && (pv.thnCI==thnCI)){
 					user_check = user_check + 1;
 					
@@ -1259,7 +1272,7 @@ void pesan_villa(){
 				time_t waktuserver; 
     			time( & waktuserver);
     			struct tm *waktu = localtime( & waktuserver);
-				fprintf(fp5, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",waktu->tm_mday,waktu->tm_mon+1,waktu->tm_year+1900,ids_pesanan,username,id_villa,tglCI,blnCI,thnCI,tglCO,blnCO,thnCO,totalPembayaran,sisaPembayaran,status);
+				fprintf(fp5, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Lama Sewa: %d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",waktu->tm_mday,waktu->tm_mon+1,waktu->tm_year+1900,ids_pesanan,username,id_villa,tglCI,blnCI,thnCI,lama_sewa,tglCO,blnCO,thnCO,totalPembayaran,sisaPembayaran,status);
 				fclose(fp5);
 				
 				printf("\n=================================================================\n");
@@ -1277,7 +1290,7 @@ void pesan_villa(){
 
 		printf("Klik apapun untuk melihat struk pemesanan..."); fflush(stdin);
 		getch();
-		while(fscanf(fp3, "Username: %s\t\t Password: %s\t\t Email: %s\t\t Notelp: %s\t\t Nama: %[^\n]\t\t\n", u.username, u.password, u.email, u.notelp, u.nama) != EOF, fscanf(fp4, "Id Villa: %s\t\t Nama Villa: %s\t\t Tipe Kamar: %s\t\t Tipe Fasilitas: %s\t\t Harga Sewa: %d\t\t Alamat Villa: %[^\n]\t\t\n",&dv.id_villa,&dv.nama_villa,&dv.tipe_kamar,&dv.tipe_fasilitas,&dv.harga,&dv.alamat_villa) != EOF, fscanf(fp2, "Id Villa: %s\t\t Nama Villa: %s\t\t Tipe Kamar: %s\t\t Tipe Fasilitas: %s\t\t Harga Sewa: %d\t\t Alamat Villa: %[^\n]\t\t\n",&dv.id_villa,&dv.nama_villa,&dv.tipe_kamar,&dv.tipe_fasilitas,&dv.harga,&dv.alamat_villa) != EOF, fscanf(fp6, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %d\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",&pv.tm_mday,&pv.tm_mon,&pv.tm_year,&pv.ids_pesanan,&pv.username,&pv.id_villa,&pv.tglCI,&pv.blnCI,&pv.thnCI,&pv.tglCO,&pv.blnCO,&pv.thnCO,&pv.totalPembayaran,&pv.sisaPembayaran,&pv.status) != EOF){
+		while(fscanf(fp3, "Username: %s\t\t Password: %s\t\t Email: %s\t\t Notelp: %s\t\t Nama: %[^\n]\t\t\n", u.username, u.password, u.email, u.notelp, u.nama) != EOF, fscanf(fp4, "Id Villa: %s\t\t Nama Villa: %s\t\t Tipe Kamar: %s\t\t Tipe Fasilitas: %s\t\t Harga Sewa: %d\t\t Alamat Villa: %[^\n]\t\t\n",&dv.id_villa,&dv.nama_villa,&dv.tipe_kamar,&dv.tipe_fasilitas,&dv.harga,&dv.alamat_villa) != EOF, fscanf(fp2, "Id Villa: %s\t\t Nama Villa: %s\t\t Tipe Kamar: %s\t\t Tipe Fasilitas: %s\t\t Harga Sewa: %d\t\t Alamat Villa: %[^\n]\t\t\n",&dv.id_villa,&dv.nama_villa,&dv.tipe_kamar,&dv.tipe_fasilitas,&dv.harga,&dv.alamat_villa) != EOF, fscanf(fp6, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %d\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Lama Sewa: %d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",&pv.tm_mday,&pv.tm_mon,&pv.tm_year,&pv.ids_pesanan,&pv.username,&pv.id_villa,&pv.tglCI,&pv.blnCI,&pv.thnCI,&pv.lama_sewa,&pv.tglCO,&pv.blnCO,&pv.thnCO,&pv.totalPembayaran,&pv.sisaPembayaran,&pv.status) != EOF){
 			if(strcmp(id_villa,dv.id_villa)==0 && strcmp(u.username,username)==0 && strcmp(pv.id_villa,dv.id_villa)==0 && strcmp(u.username,pv.username)==0){
 				system("cls");
 				printf("=================================================================\n");
@@ -1297,6 +1310,7 @@ void pesan_villa(){
 				printf("   Nama Villa          : %s Villa\n",dv.nama_villa);                                         fflush(stdin);
 				printf("   Alamat Villa        : %s\n",dv.alamat_villa);                                             fflush(stdin);
 				printf("   Tanggal Check In    : %d/%d/%d\n",tglCI,blnCI,thnCI);                                     fflush(stdin);
+				printf("   Lama Sewa           : %d Hari\n",lama_sewa);                                              fflush(stdin);
 				printf("   Tanggal Check Out   : %d/%d/%d\n",tglCO,blnCO,thnCO);                                     fflush(stdin);
 				printf("   Harga per Malam     : Rp. %d\n",dv.harga);                                                fflush(stdin);
 				printf("   Biaya Admin         : Rp. %d\n",admin);                                                   fflush(stdin);
