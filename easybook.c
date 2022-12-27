@@ -883,13 +883,38 @@ void hapus_pesanan(){
 }
 
 void update_status(){
+	char status[15] = "BOOKED";
 	char id_update[10];
 	FILE *fp1;
 	FILE *fp2;
 	fp1 = fopen("DataPesanan.txt", "r");
 	fp2 = fopen("Update.txt", "a");
 	pesanvilla pv; 
-	printf("Masukan id pemesanan yang ingin diperbaharui: ");
+	system("cls");
+	printf("=================================================================\n");
+	printf("||                                                             ||\n");
+	printf("||                     MENU UPDATE DATA PESANAN                ||\n");
+	printf("||                             EASY BOOK                       ||\n");
+	printf("||                                                             ||\n");
+	printf("=================================================================\n");
+	printf("                                                                 \n");
+	printf("=================================================================\n");
+	printf("|     ID PEMESAN    |       TANGGAL CI    |        STATUS       |\n");
+	printf("=================================================================\n");
+
+	FILE *cekdata;
+	cekdata=fopen("DataPesanan.txt","r");
+
+	if(cekdata==NULL){
+		printf("file txt tidak ada!");
+	}else{
+		while(fscanf(cekdata, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",&pv.tm_mday,&pv.tm_mon,&pv.tm_year,&pv.ids_pesanan,&pv.username,&pv.id_villa,&pv.tglCI,&pv.blnCI,&pv.thnCI,&pv.tglCO,&pv.blnCO,&pv.thnCO,&pv.totalPembayaran,&pv.sisaPembayaran,&pv.status) != EOF){
+			printf("\t%s\t\t%d/%d/%d\t\t%s\n", pv.ids_pesanan, pv.tglCI, pv.blnCI, pv.thnCI, pv.status);
+		}
+	}
+	fclose(cekdata);
+	printf("=================================================================\n");
+	printf("   Masukan id pemesanan yang ingin diperbaharui: ");
 	scanf("%s", id_update);
 
 
@@ -904,12 +929,13 @@ void update_status(){
 		}
 	}
 
-	fprintf(fp2, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",pv.tm_mday,pv.tm_mon,pv.tm_year,pv.ids_pesanan,pv.username,pv.id_villa,pv.tglCI,pv.blnCI,pv.thnCI,pv.tglCO,pv.blnCO,pv.thnCO,pv.totalPembayaran,pv.sisaPembayaran,pv.status);
+	fprintf(fp2, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",pv.tm_mday,pv.tm_mon,pv.tm_year,id_update,pv.username,pv.id_villa,pv.tglCI,pv.blnCI,pv.thnCI,pv.tglCO,pv.blnCO,pv.thnCO,pv.totalPembayaran,pv.sisaPembayaran,status);
 	fclose(fp1);
 	fclose(fp2);
 	remove("DataPesanan.txt"); 
 	rename("Update.txt", "DataPesanan.txt");
 	printf("\n   Data pesanan telah berhasil diperbaharui\n"); fflush(stdin);
+	printf("\n   Klik apapun untuk kembali ke menu admin..."); fflush(stdin);
 	getch();
 	menu_admin();
 }
