@@ -1,18 +1,21 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <conio.h>
-#include <time.h>
- 
-typedef struct{
-    char nama[50];      
-    char username[50];  
-    char password[50];
-    char email[50];
-	char notelp[50];
-}User;
-User u;
+#include <stdio.h> //header standar input output dalam bahasa c
+#include <stdlib.h> //header standar input output dalam bahasa c
+#include <string.h> //header yang berisi fungsi-fungsi yang digunakan untuk pengoperasian string
+#include <conio.h> //header standar input output dalam bahasa c
+#include <time.h> //header yang digunakan untuk menampilkan format tanggal dan waktu
 
+// Struct User untuk menyimpan member nama, username, password, email, no telp 
+typedef struct{
+    char nama[50];  //untuk menyimpan nama dengan maksimal 50 karakter pada saat registrasi pengguna    
+    char username[50]; //untuk menyimpan username dengan maksimal 50 karakter pada saat registrasi serta login pengguna 
+    char password[50]; //untuk menyimpan password dengan maksimal 50 karakter pada saat registrasi serta login pengguna
+    char email[50]; //untuk menyimpan email dengan maksimal 50 karakter pada saat registrasi pengguna
+	char notelp[50]; //untuk menyimpan no telp dengan maksimal 50 karakter pada saat registrasi pengguna
+}User;
+User u; //Mendeklarasikan variabel u pada struct User
+
+
+// Struct untuk menyimpan Data Villa
 typedef struct{
     char id_villa[10];      
     char nama_villa[255];
@@ -23,28 +26,29 @@ typedef struct{
 }datavilla;
 datavilla dv;
 
+// Struct untuk menyimpan Pesanan Villa
 typedef struct{
-	int	tm_mday;
-	int tm_mon;
-	int	tm_year;
-	char ids_pesanan[10];
-	char username[50]; 
-	char id_villa[10];       
-	char nama[50];  
-	char notelp[50];         
-	char email[50];                     
-	int tglCI;             
-	int blnCI;             
-	int thnCI;                         
-  	int tglCO;             
-	int blnCO;             
-	int thnCO;
-	int lama_sewa;             
-	int totalPembayaran ;        
-	int sisaPembayaran ;  
+	int	tm_mday;                             //untuk menyimpan tm_mday yang dipesan ke dalam variabel integer saat input pemesanan villa   
+	int tm_mon;                             //untuk menyimpan tm_mon yang dipesan ke dalam variabel integer saat input pemesanan villa   
+	int	tm_year;                           //untuk menyimpan tm_year yang dipesan ke dalam variabel integer saat input pemesanan villa   
+	char ids_pesanan[10];                 //untuk menyimpan id_pemesan yang dipesan ke dalam variabel char saat input pemesanan villa      
+	char username[50];                   //untuk menyimpan username ke dalam variabel char dengan maksimal 50 karakter saat input pemesanan villa
+	char id_villa[10];                  //untuk menyimpan id_villa yang dipesan ke dalam variabel char saat input pemesanan villa     
+	char nama[50];                     //untuk menyimpan nama_pemesan ke dalam variabel char dengan maksimal 50 karakter saat input pemesanan villa
+	char notelp[50];                  //untuk menyimpan noHP pemesan ke dalam variabel char dengan maksimal 50 karakter saat input pemesanan villa         
+	char email[50];                  //untuk menyimpan email pemesan ke dalam variabel char dengan maksimal 50 karakter saat input pemesanan villa                    
+	int tglCI;                      //berfungsi untuk menyimpan tanggal check in saat input pemesanan villa ke dalam variabel bertipe integer             
+	int blnCI;                     //berfungsi untuk menyimpan bulan check in saat input pemesanan villa ke dalam variabel bertipe integer      
+	int thnCI;                    //berfungsi untuk menyimpan tahun check in saat input pemesanan villa ke dalam variabel bertipe integer                  
+  	int tglCO;                   //berfungsi untuk menyimpan tanggal check out saat input pemesanan villa ke dalam variabel bertipe integer         
+	int blnCO;                  //berfungsi untuk menyimpan bulan check out saat input pemesanan villa ke dalam variabel bertipe integer          
+	int thnCO;                 //berfungsi untuk menyimpan tahun check out saat input pemesanan villa ke dalam variabel bertipe integer
+	int lama_sewa;            //berfungsi untuk menyimpan lama_sewa saat input pemesanan villa ke dalam variabel bertipe integer     
+	int totalPembayaran ;    //berfungsi untuk menyimpan total_pembayaran saat input pemesanan villa ke dalam variabel bertipe integer    
+	int sisaPembayaran ;    //berfungsi untuk menyimpan sisa pembayaran villa ke dalam variabel bertipe integer
 	char status[15];
 }pesanvilla;
-pesanvilla pv; 
+pesanvilla pv; //Mendeklarasikan variabel pesanvilla pada struct pesan_villa
 
 int hari1 ;
 int hari2 = 1; 
@@ -52,26 +56,27 @@ int admin = 10000;
 int deposito = 500000;
 time_t waktuserver; 
 
-void menu_utama();
-void menu_registrasi();
-void pilihan_login();
-void login_admin();
-void login_pengguna();
-void menu_admin();
-void menu_pelanggan(); 
-void input_villa();
-void hapus_villa();
-void pesanan_villa();
-void edit_pesanan();
-void hapus_pesanan();
-void update_status();
-void tentang_kami();
-void aturan_pemesanan();
-void pilihan_villa();
-void menu_pilihan_villa();
-void tipe_villa();
-void pesan_villa();
-void check_villa();
+//Deklarasi fungsi-fungsi yang digunakan pada program pemesanan villa :
+void menu_utama();                      /*Merupakan fungsi yang digunakan untuk menampilkan menu utama*/
+void menu_registrasi();                 /*Merupakan fungsi yang digunakan untuk menampilkan menu registrasi*/
+void pilihan_login();                   /*Merupakan fungsi yang digunakan untuk menampilkan menu pilihan_login*/
+void login_admin();                     /*Merupakan fungsi untuk masuk admin (login admin) dengan memasukkan password admin atau pegawai villa easy book*/
+void login_pengguna();                  /*Merupakan fungsi untuk masuk pengguna (login) yang berisi input username dan password*/
+void menu_admin();                      /*Merupakan fungsi untuk menu admin yang berisi 5 opsi yaitu Input Data Villa, Hapus Data Villa, Data Pesanan Villa, Edit Pesanan Villa, dan kembali ke menu utama*/
+void menu_pelanggan();                  /*Merupakan fungsi untuk menu pelanggan yang berisi 6 opsi yaitu Tentang Kami, Aturan Pemesan Villa, Pilihan Villa, Tipe dan Fasilitas Villa, Pesan Villa dan kembali ke menu utama*/
+void input_villa();                     /*Merupakan fungsi bagian dari menu admin untuk input data villa easy book yang dilakukan oleh pegawai atau adminn*/
+void hapus_villa();                     /*Merupakan fungsi bagian dari menu admin untuk hapus data villa easy book yang dilakukan oleh pegawai atau adminn*/
+void pesanan_villa();                   /*Merupakan fungsi bagian dari menu admin untuk data pesanan villa easy book yang dilakukan oleh pegawai atau adminn*/
+void edit_pesanan();                    /*Merupakan fungsi bagian dari menu admin untuk edit data pesanan villa easy book yang dilakukan oleh pegawai atau adminn*/
+void hapus_pesanan();                   /*Merupakan fungsi bagian dari menu admin untuk menghapus data pesanan villa easy book yang dilakukan oleh pegawai atau adminn*/
+void update_status();                   /*Merupakan fungsi bagian dari menu admin untuk update status data pesanan villa easy book yang dilakukan oleh pegawai atau adminn*/
+void tentang_kami();                    /*Merupakan fungsi bagian dari menu pengguna untuk melihat apasih itu villa easy book yang dilakukan oleh pengguna*/
+void aturan_pemesanan();                /*Merupakan fungsi bagian dari menu pengguna untuk melihat aturan pemesanan villa easy book yang dilakukan oleh pengguna*/
+void pilihan_villa();                   /*Merupakan fungsi bagian dari menu pengguna untuk melihat pilihan villa easy book yang dilakukan oleh pengguna*/
+void menu_pilihan_villa();              /*Merupakan fungsi bagian dari menu pengguna untuk melihat menu pilihan villa easy book yang dilakukan oleh pengguna*/
+void tipe_villa();                      /*Merupakan fungsi bagian dari menu pengguna untuk melihat tipe villa easy book yang dilakukan oleh pengguna*/
+void pesan_villa();                     /*Merupakan fungsi bagian dari menu pengguna untuk memesan villa easy book yang dilakukan oleh pengguna*/
+void check_villa();                     /*Merupakan fungsi bagian dari menu pengguna untuk mengecheck villa yang tersedia di villa easy book yang dilakukan oleh pengguna*/
 int Februari (int thn);
 int BknFeb (int thn, int bln);
 int id_generator();
@@ -323,9 +328,27 @@ void menu_registrasi(){
     }
 }
 
+
+
+//=======================================================================//
+//*****         Fungsi Untuk Menampilkan Menu Masuk Program         *****//
+//=======================================================================//
+// Nama Fungsi    : menu_login                                           //
+// Input Argumen  : int pilihan                                          //
+// Output Argumen : -                                                    //
+// Deskripsi      : Fungsi ini berfungsi untuk menampilkan menu masuk    //
+//                  ke program dengan menginputkan angka sesuai dengan   //
+//                  pilihan dari pengguna program                        //
+//                                                                       //
+// I Made Arya Adi Pramana - 2205551016                                  //
+// Kelas B                                                               //
+//=======================================================================//
+
 void pilihan_login(){
-	int link;
+	int link; 
 	system("cls");
+	
+	// Instruksi yang diberikan kepada pengguna
 	printf("\n=================================================================\n");
 	printf("||                                                             ||\n");
 	printf("||                        PILIHAN MENU LOGIN                   ||\n");
@@ -339,9 +362,11 @@ void pilihan_login(){
 	link = validasi_tiga();
 	system("cls");
 	if(link==1){
+	// Jika pengguna menginput angka 1 maka dipanggil fungsi login admin
 		login_admin();
 		
 	}else if(link==2){
+	// Jika pengguna menginput angka 2 maka dipanggil fungsi login pengguna
 		login_pengguna();
 		
 	}else{
@@ -349,6 +374,20 @@ void pilihan_login(){
 	}
 }
 
+//=======================================================================//
+//*****                  Fungsi Untuk Masuk Pegawai                 *****//
+//=======================================================================//
+// Nama Fungsi    : login_admin                                          //
+// Input Argumen  : -                                                    //
+// Output Argumen : -                                                    //
+// Deskripsi      : Fungsi ini berfungsi khusus bagi pegawai atau admin  //
+//                  untuk masuk ke dalam program, dengan menginputkan    //
+//                  password yang sudah terdapat pada file databases     //
+//                  'passwordAdmin.txt'                                  //
+//                                                                       //
+// I Kadek Nanda Surya Agusta - 2205551022                               //
+// Kelas B                                                               //
+//=======================================================================//
 void login_admin(){
 	int link;
 	int passwordbenar;
@@ -401,26 +440,40 @@ void login_admin(){
 	fclose(AA); 
 }
 
+//=======================================================================//
+//*****                 Fungsi Untuk Login Pengguna                ******//
+//=======================================================================//
+// Nama Fungsi    : masuk_pengguna                                       //
+// Input Argumen  : char username[50], char password[50], dan int pilihan//
+// Output Argumen : -                                                    //
+// Deskripsi      : Menginput username dan passowrd saat masuk pengguna  //
+//                  yang sesuai dengan rekaman pada logrecord.txt        //
+//                  akan berlanjut pada menu pengunjung                  //
+//                                                                       //
+// I Made Arya Adi Pramana - 2205551016                               //
+// Kelas B                                                               //
+//=======================================================================//
 void login_pengguna(){
     char username[50];
     char password[50];
     int link;
 
     FILE *AP;
+    // Membuka file dengan mode "AP"
     AP=fopen("AkunPelanggan.txt", "r");
 
 	if(AP==NULL){
         printf("File txt Tidak Tersedia\n");
     }
-
+    // MENU LOGIN
 	printf("=================================================================\n");
 	printf("||                                                             ||\n");
 	printf("||                       MENU LOGIN EASY BOOK                  ||\n");
 	printf("||                                                             ||\n");
 	printf("=================================================================\n\n");
-    printf ("   Username: "); 
+    printf ("   Username: "); //input username
     scanf  ("%s", username); 
-    printf ("   Password: "); 
+    printf ("   Password: "); //input password
     scanf  ("%s", password);
     system ("cls");
     
@@ -436,6 +489,7 @@ void login_pengguna(){
         }
     }
     
+    //  Jika akun tidak ditemukan maka akan diberikan pilihan untuk melakukan registrasi, melakukan login kembali atau kembali ke menu pilihan login
     if(user_check==0){
     	printf("=================================================================\n");
 		printf("||                                                             ||\n");
@@ -455,12 +509,15 @@ void login_pengguna(){
         system ("cls");
 
         if(link==1){
+        // Jika pengguna mengetik nomor 1 maka akan dialihkan kepada fungsi registrasi
             menu_registrasi();
 
         }else if (link==2) {
+        // Jika pengguna mengetik nomor 2 maka akan dialihkan kepada fungsi login kembali	
             login_pengguna();
                 
         }else if (link==3){
+        // Jika pengguna mengetik nomor 3 maka akan dialihkan kepada fungsi pilihan login    	
             pilihan_login();
 
         }else{
@@ -472,9 +529,25 @@ void login_pengguna(){
 		menu_pelanggan();
 		
 	}
-    fclose(AP);
+    fclose(AP); //menutup file "AP.txt"
 }
 
+
+//=======================================================================//
+//*****             Fungsi Untuk Menampilkan Menu Admin             *****//
+//=======================================================================//
+// Nama Fungsi    : menu admin                                           //
+// Input Argumen  : int                                                  //
+// Output Argumen : -                                                    //
+// Deskripsi      : Fungsi ini berfungsi untuk menampilkan kategori menu //
+//                  khusus untuk pegawai atau admin, yaitu 1 untuk input //
+//                  data villa, 2 untuk hapus data villa, 3 untuk data   //
+//                  pesanan villa, 4 untuk edit pesanan villa dan 5      //
+//                  untuk kembali ke menu utama                          //
+//                                                                       //
+// I Kadek Nanda Surya Agusta - 2205551022                               //
+// Kelas B                                                               //
+//=======================================================================//
 void menu_admin(){
 	int link;
 	system("cls");
@@ -499,18 +572,23 @@ void menu_admin(){
     system ("cls");
 
     if(link==1){
+    // Jika admin mengetik nomor 1 maka akan dialihkan kepada fungsi input_villa 	
         input_villa();
 
     }else if (link==2) {
+    // Jika admin mengetik nomor 2 maka akan dialihkan kepada fungsi hapus_villa	
         hapus_villa();
                 
     }else if (link==3){
+    // Jika admin mengetik nomor 3 maka akan dialihkan kepada fungsi pesanan_villa	
         pesanan_villa();
     
     }else if (link==4){
+    // Jika admin mengetik nomor 4 maka akan dialihkan kepada fungsi edit_pesanan
         edit_pesanan();
         
     }else if (link==5){
+    // Jika admin mengetik nomor 5 maka akan dialihkan kepada fungsi menu_utama	
         menu_utama();
 
     }else{
@@ -520,6 +598,22 @@ void menu_admin(){
 		
 }
 
+//=======================================================================//
+//*****             Fungsi Untuk Menampilkan Menu Pengguna          *****//
+//=======================================================================//
+// Nama Fungsi    : menu pengguna                                        //
+// Input Argumen  : int                                                  //
+// Output Argumen : -                                                    //
+// Deskripsi      : Fungsi ini berfungsi untuk menampilkan kategori menu //
+//                  khusus untuk pengguna, yaitu 1 untuk melihat apa itu //
+//                  villa easy book, 2 untuk melihat aturan pemesanan    //
+//                  villa, 3 untuk melihat pilighan villa, 4 untuk       //
+//                  melihat tipe dan fasilitas villa, 5 untuk memesan    //
+//                  villa, dan 6 untuk kembali ke menu utama             //
+//                                                                       //
+// I Made Arya  Adi Pramana - 2205551016                                 //
+// Kelas B                                                               //
+//=======================================================================//
 void menu_pelanggan(){
 	int link;
 	system("cls");
@@ -545,21 +639,27 @@ void menu_pelanggan(){
     system ("cls");
 
     if(link==1){
+    // Jika pengguna mengetik nomor 1 maka akan dialihkan kepada fungsi tentang_kami	
         tentang_kami();
 
     }else if (link==2) {
+    // Jika pengguna mengetik nomor 2 maka akan dialihkan kepada fungsi aturan_pemesanan	
         aturan_pemesanan();
                 
     }else if (link==3){
+    // Jika pengguna mengetik nomor 3 maka akan dialihkan kepada fungsi menu_pilihan_villa	
         menu_pilihan_villa();
     
     }else if (link==4){
+    // Jika pengguna mengetik nomor 4 maka akan dialihkan kepada fungsi tipe_villa 	
         tipe_villa();
         
     }else if (link==5){
+    // Jika pengguna mengetik nomor 5 maka akan dialihkan kepada fungsi pesan_villa 	
         pesan_villa();
 
     }else if (link==6){
+    // Jika pengguna mengetik nomor 1 maka akan dialihkan kepada fungsi menu_utama	
         menu_utama();
 
     }else{
@@ -579,6 +679,7 @@ void input_villa(){
 
 	system("cls");
 	do{
+	//intruksi untuk menginput data villa	
 		printf("=================================================================\n");
 		printf("||                                                             ||\n");
 		printf("||                       MENU INPUT DATA VILLA                 ||\n");
@@ -602,35 +703,36 @@ void input_villa(){
 		printf("   Harga Sewa       : "); fflush(stdin);
 		scanf ("%d", &harga);
 
-		int user_check;
-		user_check = 0;
+		int user_check; //disini user akan mengecek data yang ada di villa tersebut
+		user_check = 0; // Inisialisasi value sama dengan 0
 		
-		FILE *DV;
-		DV=fopen("DataVilla.txt", "r");
+		FILE *DV; // variable pointer bernama DV dengan tipe FILE
+		DV=fopen("DataVilla.txt", "r"); //data akan diambil dari file txt
 		
-		if(DV == NULL){
+		if(DV == NULL){ //jika hasilnya == NULL maka akan muncul tampilan file txt tidak tersedia
 			printf("File txt Tidak Tersedia\n");
 
 		}else{
+		// EOF atau End Of File sesuai namanya, kondisi while akan terus dijalankan hingga fscanf berada pada akhir dari file
 			while(fscanf(DV, "Id Villa: %s\t\t Nama Villa: %s\t\t Tipe Kamar: %s\t\t Tipe Fasilitas: %s\t\t Harga Sewa: %d\t\t Alamat Villa: %[^\n]\t\t\n",&dv.id_villa,&dv.nama_villa,&dv.tipe_kamar,&dv.tipe_fasilitas,&dv.harga,&dv.alamat_villa) != EOF){
-				if(strcmp(dv.id_villa,id_villa)==0){
-					user_check = user_check + 1;
+				if(strcmp(dv.id_villa,id_villa)==0){ // akan di cek apakah id villa pada file txt sama dengan id villa yang diinputkan user
+					user_check = user_check + 1; // jika benar maka beri tambahan nilai 1 pada user check
 				
 				}else{
-					user_check = user_check + 0;
+					user_check = user_check + 0; // jika salah maka tidak beri tambahan apa-apa
 				}	
 			}
 		fclose(DV);
 		}
 		
-		FILE *IV;
-		IV = fopen("DataVilla.txt","a");
+		FILE *IV;   // variable pointer bernama IV dengan tipe FILE
+		IV = fopen("DataVilla.txt","a"); // mengakses file txt yang memiliki list data villa
 		
-		if(user_check==0){
-			if(IV == NULL){
+		if(user_check==0){  // akan masuk ke if atau akan diproses input villa jika user_check == 0
+			if(IV == NULL){ // akan di cek apakah txt berhasil di buka, jika ternyata NULL maka print text dibawah
 				printf("File txt Tidak Tersedia\n");
 				
-			}else{
+			}else{ // Jika berhasil di buka maka tambahkan data kedalam file txt
 				fprintf(IV, "Id Villa: %s\t\t Nama Villa: %s\t\t Tipe Kamar: %s\t\t Tipe Fasilitas: %s\t\t Harga Sewa: %d\t\t Alamat Villa: %s\t\t\n",id_villa,nama_villa,tipe_kamar,tipe_fasilitas,harga,alamat_villa);
 				fclose(IV);
 				
@@ -640,7 +742,7 @@ void input_villa(){
 				printf("||                                                             ||\n");
 				printf("=================================================================\n");
 			}
-		}else{
+		}else{ // Jika ternyata user_check bukan 0, maka tidak diperbolehkan input data villa
 			printf("\n   Maaf, id telah digunakan!");
 			printf("\n   Klik apapun untuk input ulang...");
 			getch();
@@ -662,6 +764,7 @@ void hapus_villa(){
 	datavilla dv;
 	char id_hapus[10];
 	do{
+	//intruksi untuk hapus data villa	
 		printf("=================================================================\n");
 		printf("||                                                             ||\n");
 		printf("||                       MENU HAPUS DATA VILLA                 ||\n");
@@ -675,23 +778,23 @@ void hapus_villa(){
 		pilihan_villa();
 		printf("                                                                 \n");
 		printf("-----------------------------------------------------------------\n");
-		printf("   Pilih ID villa yang akan dihapus: "); fflush(stdin);
+		printf("   Pilih ID villa yang akan dihapus: "); fflush(stdin); //setelah muncul menu pilihan villa admin akan diminta untuk memasukkan id villa yang nantinya akan di hapus datanya
 		scanf("%s",&id_hapus);
 
 		FILE *fp1, *fp2;
 
 
-		fp1 = fopen("DataVilla.txt", "r");
-		fp2 = fopen("Temp_Data.txt", "a");
+		fp1 = fopen("DataVilla.txt", "r"); // mengakses file txt DataVilla dengan mode r atau read (tidak bisa mengedit file, hanya untuk baca data saja)
+		fp2 = fopen("Temp_Data.txt", "a"); // mengakses/membuat file txt dengan nama file Temp_Data dengan mode a atau append (Bisa mengedit fil
 			
 
-		if(fp1==NULL){
+		if(fp1==NULL){ // Jika ternyata DataVilla gagal dibuka maka masuk ke if
 			fprintf(stderr,"Tidak dapat membuka file...");
 			exit(0);
 		}
-
+	    // Lakukan looping while sebanyak baris data yang ada di file DataVilla, dan akhiri saat sudah stop di akhir file
 		while(fscanf(fp1, "Id Villa: %s\t\t Nama Villa: %s\t\t Tipe Kamar: %s\t\t Tipe Fasilitas: %s\t\t Harga Sewa: %d\t\t Alamat Villa: %[^\n]\t\t\n",&dv.id_villa,&dv.nama_villa,&dv.tipe_kamar,&dv.tipe_fasilitas,&dv.harga,&dv.alamat_villa) != EOF){
-			if(strcmp(dv.id_villa,id_hapus)!=0){
+			if(strcmp(dv.id_villa,id_hapus)!=0){ // selama perulangan jika id villa di file DataVilla TIDAK SAMA dengan id inputan user, maka akan menyalin data baris saat ini ke file Temp_Data
 				fprintf(fp2, "Id Villa: %s\t\t Nama Villa: %s\t\t Tipe Kamar: %s\t\t Tipe Fasilitas: %s\t\t Harga Sewa: %d\t\t Alamat Villa: %s\t\t\n",dv.id_villa,dv.nama_villa,dv.tipe_kamar,dv.tipe_fasilitas,dv.harga,dv.alamat_villa); 
 			}
 		}
@@ -699,8 +802,8 @@ void hapus_villa(){
 		fclose(fp1);
 		fclose(fp2);
 
-		remove("DataVilla.txt"); 
-		rename("Temp_Data.txt", "DataVilla.txt");
+		remove("DataVilla.txt"); // Menghapus file asli
+		rename("Temp_Data.txt", "DataVilla.txt"); // Merename nama Temp_Data menjadi nama file asli. Ini untuk mereplika aksi delete (mengurangi jumlah data pada file)
 		printf("   Data villa telah berhasil dihapus\n");
 		printf("\n-----------------------------------------------------------------\n");
 		printf("|   Pilih Y jika ingin menghapus data kembali                   |  \n"); 
@@ -712,6 +815,18 @@ void hapus_villa(){
 	}while(pilihan=='y' || pilihan=='Y');
 }
 
+//=======================================================================//
+//***********   Fungsi Untuk Menampilkan Data Pesananan     *************//
+//=======================================================================//
+// Nama Fungsi    : pesanan_villa                                        //
+// Input Argumen  : char                                                 //
+// Output Argumen : -                                                    //
+// Deskripsi      : Fungsi ini digunakan untuk menampilkan data pesanan  //
+//                  villa easy book                                      //
+//                                                                       //
+// I Kadek Nanda Surya Agusta- 2205551022                                //
+// Kelas B                                                               //
+//=======================================================================//
 void pesanan_villa(){
 	char pilihan;
 	char id_pesanan[10];
@@ -797,6 +912,20 @@ void pesanan_villa(){
 	}while(pilihan=='y' || pilihan=='Y');
 }
 
+//=======================================================================//
+//*****             Fungsi Untuk Menampilkan Menu Edit Data Pesanan *****//
+//=======================================================================//
+// Nama Fungsi    : menu Edit Data Pesanan                               //
+// Input Argumen  : int                                                  //
+// Output Argumen : -                                                    //
+// Deskripsi      : Fungsi ini berfungsi untuk menampilkan kategori menu //
+//                  khusus untuk pegawai atau admin, yaitu 1 untuk hapus //
+//                  data pesanan, 2 untuk update data pesanan, 3 untuk   //
+//                  kembali ke menu admin                                //
+//                                                                       //
+// I Kadek Nanda Surya Agusta - 2205551022                               //
+// Kelas B                                                               //
+//=======================================================================//
 void edit_pesanan(){
 	int link;
 	printf("=================================================================\n");
@@ -818,16 +947,31 @@ void edit_pesanan(){
 	link = validasi_tiga();
 	system("cls");
 	if(link==1){
+	// Jika admin mengetik nomor 1 maka akan dialihkan kepada fungsi hapus_pesanan	
 		hapus_pesanan();
 		
 	}else if(link==2){
+	// Jika admin mengetik nomor 2 maka akan dialihkan kepada fungsi update_status
 		update_status();
 		
 	}else{
+	// Jika admin mengetik nomor 3 maka akan dialihkan kepada fungsi menu_admin	
 		menu_admin();
 	}
 }
 
+//=======================================================================//
+//**********   Fungsi Untuk Menampilkan Hapus Data Pesananan  ***********//
+//=======================================================================//
+// Nama Fungsi    : Hapus_pesanan                                        //
+// Input Argumen  : char                                                 //
+// Output Argumen : -                                                    //
+// Deskripsi      : Fungsi ini digunakan untuk menampilkan hapus data    //
+//                  pesanan villa easy book                              //
+//                                                                       //
+// I Kadek Nanda Surya Agusta- 2205551022                                //
+// Kelas B                                                               //
+//=======================================================================//
 void hapus_pesanan(){
 	char pilihan;
 	datavilla dv;
@@ -894,6 +1038,18 @@ void hapus_pesanan(){
 	}while(pilihan=='y' || pilihan=='Y');
 }
 
+//=======================================================================//
+//**********     Fungsi Untuk Menampilkan Update Status       ***********//
+//=======================================================================//
+// Nama Fungsi    : Update_Status                                        //
+// Input Argumen  : char                                                 //
+// Output Argumen : -                                                    //
+// Deskripsi      : Fungsi ini digunakan untuk menampilkan update status //
+//                  pesanan villa easy book                              //
+//                                                                       //
+// I Kadek Nanda Surya Agusta- 2205551022                                //
+// Kelas B                                                               //
+//=======================================================================//
 void update_status(){
 	char status[15] = "BOOKED";
 	char id_update[10];
@@ -952,6 +1108,18 @@ void update_status(){
 	menu_admin();
 }
 
+//=======================================================================//
+//*****             Fungsi Untuk Menampilkan Menu Tentang Kami      *****//
+//=======================================================================//
+// Nama Fungsi    : menu tentang kami                                    //
+// Input Argumen  : -                                                    //
+// Output Argumen : -                                                    //
+// Deskripsi      : Fungsi ini berfungsi untuk menampilkan tentang       //
+//                  program easy book itu sendiri                       //
+//                                                                       //
+// I Made Arya  Adi Pramana - 2205551016                                 //
+// Kelas B                                                               //
+//=======================================================================//
 void tentang_kami(){
 	printf("==================================================================\n");
 	printf("||                                                              ||\n");
@@ -982,6 +1150,18 @@ void tentang_kami(){
 	menu_pelanggan();
 }
 
+//=======================================================================//
+//*****          Fungsi Untuk Menampilkan Menu Aturan Pemesanan     *****//
+//=======================================================================//
+// Nama Fungsi    : menu aturan pemesanan                                //
+// Input Argumen  : -                                                    //
+// Output Argumen : -                                                    //
+// Deskripsi      : Fungsi ini berfungsi untuk menampilkan tentang       //
+//                  aturan pemesanan villa easy book                     //
+//                                                                       //
+// I Made Arya  Adi Pramana - 2205551016                                 //
+// Kelas B                                                               //
+//=======================================================================//
 void aturan_pemesanan(){
 	system ("cls");
 	printf("==================================================================\n");
@@ -1026,6 +1206,18 @@ void pilihan_villa(){
 	fclose(cekdata);
 }
 
+//=======================================================================//
+//*****             Fungsi Untuk Menampilkan Menu Pilihan Villa     *****//
+//=======================================================================//
+// Nama Fungsi    : menu pilihan villa                                   //
+// Input Argumen  : char, int                                            //
+// Output Argumen : -                                                    //
+// Deskripsi      : Fungsi ini berfungsi untuk menampilkan tentang       //
+//                  pilihan villa yang tersedia di villa easy book       //
+//                                                                       //
+// I Made Arya  Adi Pramana - 2205551016                                 //
+// Kelas B                                                               //
+//=======================================================================//
 void menu_pilihan_villa(){
 	char pilihan;
 	char id_villa[10];
@@ -1107,6 +1299,19 @@ void menu_pilihan_villa(){
 
 }
 
+//=======================================================================//
+//*****             Fungsi Untuk Menampilkan Menu Check Villa       *****//
+//=======================================================================//
+// Nama Fungsi    : menu check villa                                     //
+// Input Argumen  : char, int                                            //
+// Output Argumen : -                                                    //
+// Deskripsi      : Fungsi ini berfungsi untuk menampilkan tentang       //
+//                  check ketersediaan villa yang tersedia dalam villa   //
+//                  easy book                                            //
+//                                                                       //
+// I Made Arya  Adi Pramana - 2205551016                                 //
+// Kelas B                                                               //
+//=======================================================================//
 void check_villa(){
 	char pilihan;
 	char id_villa[10];
@@ -1178,6 +1383,18 @@ void check_villa(){
 	}while(pilihan=='y' || pilihan=='Y');
 }
 
+//=======================================================================//
+//*****             Fungsi Untuk Menampilkan Menu Tipe Villa        *****//
+//=======================================================================//
+// Nama Fungsi    : menu tipe villa                                      //
+// Input Argumen  : -                                                    //
+// Output Argumen : -                                                    //
+// Deskripsi      : Fungsi ini berfungsi untuk menampilkan tipe villa    //
+//                  yang tersedia di villa easy book                     //
+//                                                                       //
+// I Made Arya  Adi Pramana - 2205551016                                 //
+// Kelas B                                                               //
+//=======================================================================//
 void tipe_villa(){
 	printf("=================================================================\n");
 	printf("||                                                             ||\n");
@@ -1215,6 +1432,20 @@ void tipe_villa(){
 	menu_pelanggan();
 }
 
+//=======================================================================//
+//*****             Fungsi Untuk Menampilkan Menu Pesan Villa       *****//
+//=======================================================================//
+// Nama Fungsi    : menu pesan villa                                     //
+// Input Argumen  : char, int                                            //
+// Output Argumen : -                                                    //
+// Deskripsi      : Fungsi ini berfungsi untuk menampilkan cara          //
+//                  memesan villa yang tersedia di villa easy book       //
+//                  nanti disini aan ditampilan pilihan villa yang       //
+//                  tersedia                                             //
+//                                                                       //
+// I Made Arya  Adi Pramana - 2205551016                                 //
+// Kelas B                                                               //
+//=======================================================================//
 void pesan_villa(){
 	int waktu;
 	int tm_mday;
@@ -1376,6 +1607,18 @@ void pesan_villa(){
 			pesan_villa();
 		}
 
+        //=======================================================================//
+		//*****             Fungsi Untuk Menampilkan Struk Pesanan Villa    *****//
+		//=======================================================================//
+		// Nama Fungsi    : struk pesanan villa easy book                        //
+		// Input Argumen  : -                                                    //
+		// Output Argumen : -                                                    //
+		// Deskripsi      : Fungsi ini berfungsi untuk menampilkan struk         //
+		//                  pesanan villa yang telah dipesan oleh pengguna       //
+		//                                                                       //
+		// I Made Arya  Adi Pramana - 2205551016                                 //
+		// Kelas B                                                               //
+		//=======================================================================//
 		printf("Klik apapun untuk melihat struk pemesanan..."); fflush(stdin);
 		getch();
 		while(fscanf(fp3, "Username: %s\t\t Password: %s\t\t Email: %s\t\t Notelp: %s\t\t Nama: %[^\n]\t\t\n", u.username, u.password, u.email, u.notelp, u.nama) != EOF, fscanf(fp4, "Id Villa: %s\t\t Nama Villa: %s\t\t Tipe Kamar: %s\t\t Tipe Fasilitas: %s\t\t Harga Sewa: %d\t\t Alamat Villa: %[^\n]\t\t\n",&dv.id_villa,&dv.nama_villa,&dv.tipe_kamar,&dv.tipe_fasilitas,&dv.harga,&dv.alamat_villa) != EOF, fscanf(fp2, "Id Villa: %s\t\t Nama Villa: %s\t\t Tipe Kamar: %s\t\t Tipe Fasilitas: %s\t\t Harga Sewa: %d\t\t Alamat Villa: %[^\n]\t\t\n",&dv.id_villa,&dv.nama_villa,&dv.tipe_kamar,&dv.tipe_fasilitas,&dv.harga,&dv.alamat_villa) != EOF, fscanf(fp6, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %d\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Lama Sewa: %d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",&pv.tm_mday,&pv.tm_mon,&pv.tm_year,&pv.ids_pesanan,&pv.username,&pv.id_villa,&pv.tglCI,&pv.blnCI,&pv.thnCI,&pv.lama_sewa,&pv.tglCO,&pv.blnCO,&pv.thnCO,&pv.totalPembayaran,&pv.sisaPembayaran,&pv.status) != EOF){
