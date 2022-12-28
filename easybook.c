@@ -71,11 +71,12 @@ void pilihan_villa();
 void menu_pilihan_villa();
 void tipe_villa();
 void pesan_villa();
+void check_villa();
 int Februari (int thn);
 int BknFeb (int thn, int bln);
 int id_generator();
 
-int validasi_input(){
+int validasi_input(){ //validasi ini digunakan untuk memastikan user melakukan input berupa bilangan saja
     int bilangan;
     char cr; 
 	
@@ -92,7 +93,7 @@ int validasi_input(){
     }
 }
 
-int validasi_lima(){
+int validasi_lima(){ //validasi ini digunakan untuk memastikan user melakukan input berupa bilangan 1-5 saja
     int bilangan;
     bilangan=validasi_input();
     
@@ -105,7 +106,7 @@ int validasi_lima(){
 	}
 }
 
-int validasi_enam(){
+int validasi_enam(){ //validasi ini digunakan untuk memastikan user melakukan input berupa bilangan 1-6 saja
     int bilangan;
     bilangan=validasi_input();
     
@@ -113,12 +114,12 @@ int validasi_enam(){
         return bilangan;
         
     }else{
-        printf("Masukan pilihan yang sesuai (1/2/3/4/5): ");
+        printf("Masukan pilihan yang sesuai (1/2/3/4/5/6): ");
     	return validasi_enam();
 	}
 }
 
-int validasi_tiga(){
+int validasi_tiga(){ //validasi ini digunakan untuk memastikan user melakukan input berupa bilangan 1-3 saja
     int bilangan;
     bilangan=validasi_input();
     
@@ -131,7 +132,7 @@ int validasi_tiga(){
 	}
 }
 
-int validasi_dua(){
+int validasi_dua(){ //validasi ini digunakan untuk memastikan user melakukan input berupa bilangan 1 dan 2 saja
     int bilangan;
     bilangan=validasi_input();
     
@@ -144,7 +145,7 @@ int validasi_dua(){
 	}
 }
 
-char exite_admin (){
+char exite_admin (){ //validasi ini digunakan untuk memastikan user melakukan input berupa karakter y atau n saja (pada menu admin)
     char masukan[100];
     while(1){
         int i=0;
@@ -168,7 +169,7 @@ char exite_admin (){
     }
 }
 
-char exite_pengguna (){
+char exite_pengguna (){ //validasi ini digunakan untuk memastikan user melakukan input berupa karakter y atau n saja (pada menu pengguna)
     char masukan[100];
     while(1){
         int i=0;
@@ -192,8 +193,8 @@ char exite_pengguna (){
     }
 }
 
-int main(){
-	menu_utama();
+int main(){        //fungsi utama pada program ini
+	menu_utama(); //memanggil fungsi menu_utama
 }
 
 void menu_utama(){
@@ -202,7 +203,7 @@ void menu_utama(){
 	printf("=================================================================\n");
 	printf("||                                                             ||\n");
 	printf("||                           EASY BOOK                         ||\n");
-	printf("||       THE RIGHT SOLUTION FOR YOUR SHORT TRIP IN BALI        ||\n");
+	printf("||         THE RIGHT SOLUTION FOR YOUR HOLIDAY IN BALI         ||\n");
 	printf("||                                                             ||\n");
 	printf("=================================================================\n");
 	printf("                                                                 \n");
@@ -226,6 +227,7 @@ void menu_utama(){
 		pilihan_login();
 		
 	}else{
+	system("cls");
 	printf("=================================================================\n");
 	printf("||                                                             ||\n");
 	printf("||          TERIMA KASIH TELAH MENGGUNAKAN PROGRAM INI         ||\n");
@@ -245,11 +247,11 @@ void menu_utama(){
 }
 
 void menu_registrasi(){
-    char username[50];
-    char password[50];
-    char nama[50];
-    char email[50];
-	char notelp[50];
+    char username[50];   //Variabel yang digunakan untuk menyimpan input username yang dilakukan oleh pengguna
+    char password[50];  //Variabel yang digunakan untuk menyimpan input password yang dilakukan oleh pengguna
+    char nama[50];     //Variabel yang digunakan untuk menyimpan input nama yang dilakukan oleh pengguna
+    char email[50];   //Variabel yang digunakan untuk menyimpan input email yang dilakukan oleh pengguna
+	char notelp[50]; //Variabel yang digunakan untuk menyimpan input nomor telepon yang dilakukan oleh pengguna
 
 	system("cls");
 	printf("=================================================================\n");
@@ -258,50 +260,50 @@ void menu_registrasi(){
 	printf("||                                                             ||\n");
 	printf("=================================================================\n\n");
     printf("   Nama Lengkap     : "); fflush(stdin);
-    scanf("%[^\n]", &nama);
+    scanf("%[^\n]", &nama);                          //"%[^\n]" digunakan agar input nama dengan spasi dapat diterima
     printf("   No Telepon       : "); fflush(stdin);
-    scanf("%s", &notelp);
+    scanf("%s", &notelp);                          //input nomor telpon menggunakan string dengan jumlah maksimal 50
     printf("   Email            : "); fflush(stdin);
-    scanf("%s", &email);
+    scanf("%s", &email);                          //input email menggunakan string dengan jumlah maksimal 50
 	printf("\n-----------------------------------------------------------------\n");
     printf("           !! Silahkan membuat username dan password !!            \n");
 	printf("-----------------------------------------------------------------\n\n");
     printf("   Enter Username   : "); fflush(stdin);
-    scanf ("%s", &username);
+    scanf ("%s", &username);                   //input username menggunakan string dengan jumlah maksimal 50
     printf("   Enter Password   : "); fflush(stdin);
-    scanf ("%s", &password);
+    scanf ("%s", &password);                 //input password menggunakan string dengan jumlah maksimal 50
     
-    int user_check;
-    user_check = 0;
+    int user_check;  //variabel yang digunakan untuk memisahkan proses fprintf dari while loop
+    user_check = 0; //pemberian nilai pada variabel user_check
     
-    FILE *AP;
-    AP=fopen("AkunPelanggan.txt", "r");
+    FILE *AP;                               //Membuat pointer AP untuk menunjuk pada file "AkunPelanggan.txt"
+    AP=fopen("AkunPelanggan.txt", "r");    //Membuka file AkunPelanggan.txt dengan mode r yakni mode membaca apa yang ada di dalam file tersebut
     
 	if(AP == NULL){
     	printf("File txt Tidak Tersedia\n");
 
 	}else{
-    	while(fscanf(AP, "Username: %s\t\t Password: %s\t\t Email: %s\t\t Notelp: %s\t\t Nama: %[^\n]\t\t\n", u.username, u.password, u.email, u.notelp, u.nama) != EOF){
-    		if(strcmp(u.username,username)==0){
+    	while(fscanf(AP, "Username: %s\t\t Password: %s\t\t Email: %s\t\t Notelp: %s\t\t Nama: %[^\n]\t\t\n", u.username, u.password, u.email, u.notelp, u.nama) != EOF){ //fungsi untuk membaca keseluruhan record yang ada di dalam file
+    		if(strcmp(u.username,username)==0){ //fungsi yang membandingkan dua buah string untuk memeriksa apakah username yang diinputkan sudah digunakan sebelumnya atau tidak
         	user_check = user_check + 1;
         	
 			}else{
 			user_check = user_check + 0;
         	}	
 		}
-    fclose(AP);
+    fclose(AP); //fungsi untuk menutup file AkunPelanggan.txt
 	}
 	
-	FILE *registrasi;
-	registrasi = fopen("AkunPelanggan.txt","a");
+	FILE *registrasi;                              //Membuat pointer registrasi untuk menunjuk pada file "AkunPelanggan.txt"
+	registrasi = fopen("AkunPelanggan.txt","a");  //Membuka file AkunPelanggan.txt dengan mode a yakni mode yang dapat menambahkan record di dalam file tersebut
 	
 	if(user_check==0){
 		if(registrasi == NULL){
     		printf("File txt Tidak Tersedia\n");
     		
 		}else{
-	        fprintf(registrasi,"Username: %s\t\t Password: %s\t\t Email: %s\t\t Notelp: %s\t\t Nama: %s\t\t\n",username,password,email,notelp,nama);
-		    fclose(registrasi);
+	        fprintf(registrasi,"Username: %s\t\t Password: %s\t\t Email: %s\t\t Notelp: %s\t\t Nama: %s\t\t\n",username,password,email,notelp,nama); //fungsi menambahkan record ke dalam file
+		    fclose(registrasi); //fungsi untuk menutup file AkunPelanggan.txt
 		    
 			printf("\n=================================================================\n");
 			printf("||                                                             ||\n");
@@ -309,15 +311,15 @@ void menu_registrasi(){
 			printf("||         SELAMAT MENIKMATI LAYANAN DARI PROGRAM INI          ||\n");
 			printf("||                                                             ||\n");
 			printf("=================================================================\n");
-			printf("Tekan apapun untuk melanjutkan. . .");
-		    getch();
-		    menu_pelanggan();
+			printf("Tekan apapun untuk melanjutkan. . ."); //pernyataan bahwa registasi telah berhasil dilakukan
+		    getch();           //untuk memasukkan sebuah karakter dan tanpa diakhiri dengan enter
+		    menu_pelanggan(); //memanggil fungsi menu_pelanggan
 		}
     }else{
-       	printf("\n   Maaf, username telah digunakan!");
-       	printf("\n   Klik apapun untuk input ulang...");
-        getch();
-        menu_registrasi();
+       	printf("\n   Maaf, username telah digunakan!");   //pernyataan bahwa registasi gagal dilakukan karena terdapat username yang sama telah digunakan
+       	printf("\n   Klik apapun untuk input ulang..."); //intruksi untuk melanjutkan ke tahap berikutnya
+        getch();            //untuk memasukkan sebuah karakter dan tanpa diakhiri dengan enter
+        menu_registrasi(); //memanggil fungsi menu_registrasi
     }
 }
 
@@ -710,7 +712,6 @@ void hapus_villa(){
 	}while(pilihan=='y' || pilihan=='Y');
 }
 
-
 void pesanan_villa(){
 	char pilihan;
 	char id_pesanan[10];
@@ -718,6 +719,13 @@ void pesanan_villa(){
     FILE *cekdata;
 	do{
 		system("cls");
+		printf("=================================================================\n");
+		printf("||                                                             ||\n");
+		printf("||                        DATA PESANAN VILLA                   ||\n");
+		printf("||                             EASY BOOK                       ||\n");
+		printf("||                                                             ||\n");
+		printf("=================================================================\n");
+		printf("                                                                 \n");
 		printf("=================================================================\n");
 		printf("|     ID PEMESAN    |       TANGGAL CI    |        STATUS       |\n");
 		printf("=================================================================\n");
@@ -803,7 +811,7 @@ void edit_pesanan(){
 	printf("|| PILIHAN PROSES EDIT:                                        ||\n");                           
 	printf("|| 1. Hapus Data Pesanan                                       ||\n");
 	printf("|| 2. Update Data Pesanan                                      ||\n");
-	printf("|| 3. KEmbali ke Menu Admin                                    ||\n");
+	printf("|| 3. Kembali ke Menu Admin                                    ||\n");
 	printf("||                                                             ||\n");
 	printf("=================================================================\n");
 	printf("Masukan pilihan anda (1/2/3): ");
@@ -818,8 +826,6 @@ void edit_pesanan(){
 	}else{
 		menu_admin();
 	}
-
-
 }
 
 void hapus_pesanan(){
@@ -845,7 +851,7 @@ void hapus_pesanan(){
 		if(cekdata==NULL){
 			printf("file txt tidak ada!");
 		}else{
-			while(fscanf(cekdata, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Lama Sewa: %d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",&pv.tm_mday,&pv.tm_mon,&pv.tm_year,&pv.ids_pesanan,&pv.username,&pv.id_villa,&pv.tglCI,&pv.blnCI,&pv.thnCI,pv.lama_sewa,&pv.tglCO,&pv.blnCO,&pv.thnCO,&pv.totalPembayaran,&pv.sisaPembayaran,&pv.status) != EOF){
+			while(fscanf(cekdata, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Lama Sewa: %d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",&pv.tm_mday,&pv.tm_mon,&pv.tm_year,&pv.ids_pesanan,&pv.username,&pv.id_villa,&pv.tglCI,&pv.blnCI,&pv.thnCI,&pv.lama_sewa,&pv.tglCO,&pv.blnCO,&pv.thnCO,&pv.totalPembayaran,&pv.sisaPembayaran,&pv.status) != EOF){
 				printf("\t%s\t\t%d/%d/%d\t\t%s\n", pv.ids_pesanan, pv.tglCI, pv.blnCI, pv.thnCI, pv.status);
 			}
 		}
@@ -998,8 +1004,6 @@ void aturan_pemesanan(){
 	printf("||      kerusakan barang atau fasilitas saat menempati villa    ||\n");
 	printf("||   4. Waktu check in setiap villa sama pukul 13.00 WITA dan   ||\n");
 	printf("||      waktu check out pukul 12.00 WITA                        ||\n");
-	printf("||   5. Lama waktu menginap semua villa sama yakni 2 hari 1     ||\n");
-	printf("||      malam, bila ingin menambah hari maka harus memesan lagi ||\n");
 	printf("||                                                              ||\n");
 	printf("==================================================================\n");
 	printf("Klik apapun untuk kembali ke menu pengguna... ");
@@ -1025,6 +1029,7 @@ void pilihan_villa(){
 void menu_pilihan_villa(){
 	char pilihan;
 	char id_villa[10];
+	int link;
 	int cek;
 	do{
 		system("cls");
@@ -1079,15 +1084,98 @@ void menu_pilihan_villa(){
 			getch();
 			menu_pilihan_villa();
 		}
-		printf("\n-----------------------------------------------------------------\n");
-		printf("|   Pilih Y jika ingin melihat data kembali                     |\n"); 
-		printf("|   Pilih N jika ingin kembali ke menu admin                    |\n");
-		printf("-----------------------------------------------------------------  \n");
-		printf("    Masukan pilihan anda (Y/N): "); fflush(stdin);
-		pilihan=exite_pengguna();
-		system("cls");
+
+		printf("\n   Apakah anda ingin melihat ketersediaan villa?\n");
+		printf("\n   Pilih 1 jika ingin melihat ketersediaan villa\n");
+		printf("   Pilih 2 jika tidak ingin melihat ketersediaan villa\n\n");
+		printf("   Masukan pilihan anda: ");
+		link=validasi_dua();
+
+		if(link==1){
+			check_villa();
+
+		}else{
+			printf("\n-----------------------------------------------------------------\n");
+			printf("|   Pilih Y jika ingin melihat data kembali                     |\n"); 
+			printf("|   Pilih N jika ingin kembali ke menu pengguna                 |\n");
+			printf("-----------------------------------------------------------------  \n");
+			printf("    Masukan pilihan anda (Y/N): "); fflush(stdin);
+			pilihan=exite_pengguna();
+			system("cls");
+		}
 	}while(pilihan=='y' || pilihan=='Y');
 
+}
+
+void check_villa(){
+	char pilihan;
+	char id_villa[10];
+	int blnCI;
+	int thnCI;
+	int cek;
+	int link;
+    FILE *cekdata;
+	do{
+		system("cls");
+		printf("=================================================================\n");
+		printf("||                                                             ||\n");
+		printf("||                      CHECK KETERSEDIAAN VILLA               ||\n");
+		printf("||                           DALAM EASY BOOK                   ||\n");
+		printf("||                                                             ||\n");
+		printf("=================================================================\n");
+		printf("                                                                 \n");
+		pilihan_villa();
+		printf("                                                                 \n");
+		printf("-----------------------------------------------------------------\n");
+		printf("\n   Masukan id untuk melihat ketersediaan villa : "); fflush(stdin);
+		scanf("%s", &id_villa);
+		printf("   Masukan bulan yang ingin dicari             : "); fflush(stdin);
+		scanf("%s", &blnCI);
+		printf("   Masukan tahun yang ingin dicari             : "); fflush(stdin);
+		scanf("%s", &thnCI);
+		cekdata=fopen("DataPesanan.txt","r");
+
+		if(cekdata==NULL){
+			printf("file txt tidak ada!");
+
+		}else{
+			system("cls");
+			printf("=================================================================\n");
+			printf("||                                                             ||\n");
+			printf("||                      CHECK KETERSEDIAAN VILLA               ||\n");
+			printf("||                           DALAM EASY BOOK                   ||\n");
+			printf("||                                                             ||\n");
+			printf("=================================================================\n\n");
+			while(fscanf(cekdata, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Lama Sewa: %d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",&pv.tm_mday,&pv.tm_mon,&pv.tm_year,&pv.ids_pesanan,&pv.username,&pv.id_villa,&pv.tglCI,&pv.blnCI,&pv.thnCI,&pv.lama_sewa,&pv.tglCO,&pv.blnCO,&pv.thnCO,&pv.totalPembayaran,&pv.sisaPembayaran,&pv.status) != EOF){
+				if(strcmp(pv.id_villa,id_villa)==0 || blnCI==pv.blnCI || thnCI==pv.thnCI){
+					printf("   Tanggal yang telah terpesan : %d\n",pv.tglCI);     fflush(stdin);
+				}
+			}
+			printf("\n   Selain tanggal di atas berarti villa masih tersedia!\n");
+			printf("\n=================================================================\n");
+		}
+
+		fclose(cekdata);
+
+		printf("\n   Apakah anda ingin melihat memesan villa?\n");
+		printf("\n   Pilih 1 jika ingin memesan villa\n");
+		printf("   Pilih 2 jika tidak ingin memesan villa\n\n");
+		printf("   Masukan pilihan anda: ");
+		link=validasi_dua();
+
+		if(link==1){
+			pesan_villa();
+
+		}else{
+			printf("\n-----------------------------------------------------------------\n");
+			printf("|   Pilih Y jika ingin melihat data kembali                     |\n"); 
+			printf("|   Pilih N jika ingin kembali ke menu pengguna                 |\n");
+			printf("-----------------------------------------------------------------  \n");
+			printf("    Masukan pilihan anda (Y/N): "); fflush(stdin);
+			pilihan=exite_pengguna();
+			system("cls");
+		}
+	}while(pilihan=='y' || pilihan=='Y');
 }
 
 void tipe_villa(){
@@ -1227,8 +1315,8 @@ void pesan_villa(){
 		int user_check;
 		user_check = 0;
 		
-		sisaPembayaran = ((dv.harga/2) + deposito);
-		totalPembayaran = ((dv.harga/2) + admin);
+		sisaPembayaran = (((dv.harga*lama_sewa)/2) + deposito);
+		totalPembayaran = (((dv.harga*lama_sewa)/2) + admin);
 		
 		FILE *fp1;
 		FILE *fp2;
@@ -1239,7 +1327,7 @@ void pesan_villa(){
 			printf("Salah Satu File txt Tidak Tersedia\n");
 
 		}else{
-			while(fscanf(fp2, "Id Villa: %s\t\t Nama Villa: %s\t\t Tipe Kamar: %s\t\t Tipe Fasilitas: %s\t\t Harga Sewa: %d\t\t Alamat Villa: %[^\n]\t\t\n",&dv.id_villa,&dv.nama_villa,&dv.tipe_kamar,&dv.tipe_fasilitas,&dv.harga,&dv.alamat_villa) != EOF, fscanf(fp1, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Lama Sewa: %d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",&pv.tm_mday,&pv.tm_mon,&pv.tm_year,&pv.ids_pesanan,&pv.username,&pv.id_villa,&pv.tglCI,&pv.blnCI,&pv.thnCI,pv.lama_sewa,&pv.tglCO,&pv.blnCO,&pv.thnCO,&pv.totalPembayaran,&pv.sisaPembayaran,&pv.status) != EOF){
+			while(fscanf(fp2, "Id Villa: %s\t\t Nama Villa: %s\t\t Tipe Kamar: %s\t\t Tipe Fasilitas: %s\t\t Harga Sewa: %d\t\t Alamat Villa: %[^\n]\t\t\n",&dv.id_villa,&dv.nama_villa,&dv.tipe_kamar,&dv.tipe_fasilitas,&dv.harga,&dv.alamat_villa) != EOF, fscanf(fp1, "Waktu Pemesanan: %d/%d/%d\t\t Id Pesanan: %s\t\t Username: %s\t\t Id Villa: %s\t\t Tanggal Check-In: %d/%d/%d\t\t Lama Sewa: %d\t\t Tanggal Check-Out: %d/%d/%d\t\t Total Bayar: %d\t\t Sisa Bayar: %d\t\t Status: %s\t\t\n",&pv.tm_mday,&pv.tm_mon,&pv.tm_year,&pv.ids_pesanan,&pv.username,&pv.id_villa,&pv.tglCI,&pv.blnCI,&pv.thnCI,&pv.lama_sewa,&pv.tglCO,&pv.blnCO,&pv.thnCO,&pv.totalPembayaran,&pv.sisaPembayaran,&pv.status) != EOF){
 				if(strcmp(pv.id_villa,id_villa)==0 && (pv.tglCI==tglCI) && (pv.blnCI==blnCI) && (pv.thnCI==thnCI)){
 					user_check = user_check + 1;
 					
@@ -1371,7 +1459,7 @@ int BknFeb (int thn, int bln){
 	}
 }
 
-int id_generator(){
-	srand(time(0));
+int id_generator(){ //fungsi untuk menghasilkan bilangan random secara otomatis
+	srand(time(0)); //berfungsi untuk menghasilkan bilangan random yang berbeda pada setiap id pemesanan
 	int id_pesanan = rand();
 }
